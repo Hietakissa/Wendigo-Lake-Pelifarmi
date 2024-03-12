@@ -1,5 +1,6 @@
 using HietakissaUtils;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] float maxLookAngle = 90f;
 
     [Header("References")]
+    [SerializeField] Camera cam;
     [SerializeField] Transform cameraHolder;
     [SerializeField] MovementController player;
 
@@ -26,18 +28,27 @@ public class CameraController : MonoBehaviour
     float currentFOV;
     float xRot, yRot;
 
-    Camera cam;
+
+    [Header("Handheld Variables")]
+    [SerializeField] RenderTexture outputTexture;
+    [SerializeField] RawImage outputImage;
+    [SerializeField] Camera handheldCam;
+
+    [SerializeField] TextureFormat format;
+
+    bool inCamera;
 
 
     void Awake()
     {
+        CaptureImage();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
 
         //yRot = transform.rotation.y;
         SetRotation(transform.rotation);
 
-        cam = GetComponent<Camera>();
         currentFOV = baseFOV;
     }
 
@@ -53,6 +64,14 @@ public class CameraController : MonoBehaviour
     {
         yRot += Input.GetAxisRaw("Mouse X") * (invertHorizontal ? -sensitivity : sensitivity);
         xRot += Input.GetAxisRaw("Mouse Y") * (invertVertical ? sensitivity : -sensitivity);
+
+        if (Input.GetMouseButtonDown(0) && inCamera)
+        {
+            CaptureImage();
+        }
+
+        if (Input.GetMouseButtonDown(1)) EnterCamera();
+        if (Input.GetMouseButtonUp(1)) ExitCamera();
 
         ClampRotation();
     }
@@ -109,5 +128,48 @@ public class CameraController : MonoBehaviour
 
         currentFOV = Mathf.Lerp(currentFOV, targetFOV, FOVDamping * Time.deltaTime);
         cam.fieldOfView = Camera.HorizontalToVerticalFieldOfView(currentFOV, cam.aspect);
+    }
+
+
+    void EnterCamera()
+    {
+        inCamera = true;
+        UpdateCameraStates();
+    }
+
+    void ExitCamera()
+    {
+        inCamera = false;
+        UpdateCameraStates();
+    }
+
+    void UpdateCameraStates()
+    {
+        cam.gameObject.SetActive(!inCamera);
+        handheldCam.gameObject.SetActive(inCamera);
+    }
+
+
+    void CaptureImage()
+    {
+        handheldCam.targetTexture = outputTexture;
+        handheldCam.Render();
+
+        Texture2D image = ToTexture2D(outputTexture, format);
+        outputImage.texture = image;
+        handheldCam.targetTexture = null;
+    }
+
+    Texture2D ToTexture2D(RenderTexture rTex, TextureFormat format = TextureFormat.RGB24)
+    {
+        Texture2D tex = new Texture2D(rTex.width, rTex.height, format, false);
+        RenderTexture oldRT = RenderTexture.active;
+        RenderTexture.active = rTex;
+
+        tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
+        tex.Apply();
+
+        RenderTexture.active = oldRT;
+        return tex;
     }
 }
