@@ -158,6 +158,44 @@ public class CameraController : MonoBehaviour
         Texture2D image = ToTexture2D(outputTexture, format);
         outputImage.texture = image;
         handheldCam.targetTexture = null;
+
+        CheckObjectsInPhoto();
+    }
+
+    void CheckObjectsInPhoto()
+    {
+        int count = GameManager.Instance.photographableObjects.Count;
+        for (int i = count - 1; i >= 0; i--)
+        {
+            PhotographableObject photographableObject = GameManager.Instance.photographableObjects[i];
+
+            if (!photographableObject.gameObject.activeSelf) continue;
+
+            Vector3 point = handheldCam.WorldToViewportPoint(photographableObject.transform.position);
+            if (PointInView(point) && DistanceCheck(photographableObject.transform.position) && LOSCheck(photographableObject.transform)) photographableObject.CapturedInImage(i);
+        }
+
+        //foreach (PhotographableObject photographableObject in GameManager.Instance.photographableObjects)
+        //{
+        //    Vector3 point = handheldCam.WorldToViewportPoint(photographableObject.transform.position);
+        //    if (PointInView(point)) photographableObject.CapturedInImage();
+        //}
+
+
+        bool PointInView(Vector3 point)
+        {
+            return point.z > 0f && point.x >= 0f && point.x <= 1f && point.y >= 0f && point.y <= 1f;
+        }
+
+        bool DistanceCheck(Vector3 point)
+        {
+            return Vector3.Distance(transform.position, point) < 20f;
+        }
+
+        bool LOSCheck(Transform t)
+        {
+            return Physics.Linecast(transform.position, t.position, out RaycastHit hit) && hit.transform == t;
+        }
     }
 
     Texture2D ToTexture2D(RenderTexture rTex, TextureFormat format = TextureFormat.RGB24)

@@ -1115,6 +1115,14 @@ namespace HietakissaUtils
             {
                 GUIUtility.systemCopyBuffer = text;
             }
+
+            static Dictionary<float, WaitForSeconds> waitDictionary = new Dictionary<float, WaitForSeconds>();
+            static WaitForSeconds waitCache;
+            public static WaitForSeconds GetWaitForSeconds(float time)
+            {
+                if (waitDictionary.TryGetValue(time, out waitCache)) return waitCache;
+                return waitDictionary[time] = new WaitForSeconds(time);
+            }
         }
 
         [Flags]
