@@ -41,8 +41,6 @@ public class CameraController : MonoBehaviour
 
     void Awake()
     {
-        CaptureImage();
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
 
@@ -135,12 +133,16 @@ public class CameraController : MonoBehaviour
     {
         inCamera = true;
         UpdateCameraStates();
+
+        EventManager.EnterCamera();
     }
 
     void ExitCamera()
     {
         inCamera = false;
         UpdateCameraStates();
+
+        EventManager.ExitCamera();
     }
 
     void UpdateCameraStates()
