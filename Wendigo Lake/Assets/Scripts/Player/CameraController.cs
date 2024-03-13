@@ -1,6 +1,9 @@
 using HietakissaUtils;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
+using System.Collections;
+using TMPro;
+using System.IO;
 
 public class CameraController : MonoBehaviour
 {
@@ -33,14 +36,26 @@ public class CameraController : MonoBehaviour
     [SerializeField] RenderTexture outputTexture;
     [SerializeField] RawImage outputImage;
     [SerializeField] Camera handheldCam;
+    [SerializeField] float imageDelay;
 
     [SerializeField] TextureFormat format;
+
+    [Header("Flash")]
+    [SerializeField] float flashCooldown;
+    [SerializeField] Light flashLight;
+    [SerializeField] Spring intensitySpring;
+    [SerializeField] Image[] flashProgressImages;
+    [SerializeField] GameObject flashIndicator;
+    float flashProgress;
+    bool flash;
 
     bool inCamera;
 
 
     void Awake()
     {
+        ExitCamera();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
 
@@ -56,6 +71,35 @@ public class CameraController : MonoBehaviour
         Rotate();
         Move();
         LerpFOV();
+
+        HeldCamera();
+
+        flashLight.intensity = intensitySpring.GetValue();
+    }
+
+    void HeldCamera()
+    {
+        if (Input.GetMouseButtonDown(1)) EnterCamera();
+        else if (Input.GetMouseButtonUp(1)) ExitCamera();
+
+        if (inCamera)
+        {
+            if (Input.GetMouseButtonDown(0)) CaptureImage();
+            else if (Input.GetKeyDown(KeyCode.F) && flashProgress >= flashCooldown) SetFlash(!flash);
+        }
+
+        // bad bad code but no time
+        if (flashProgress < flashCooldown)
+        {
+            flashProgress += Time.deltaTime;
+
+            if (flashProgress >= flashCooldown)
+            {
+                flashProgress = flashCooldown;
+            }
+
+            foreach (Image image in flashProgressImages) image.fillAmount = flashProgress / flashCooldown;
+        }
     }
 
     void GetInput()
@@ -63,13 +107,7 @@ public class CameraController : MonoBehaviour
         yRot += Input.GetAxisRaw("Mouse X") * (invertHorizontal ? -sensitivity : sensitivity);
         xRot += Input.GetAxisRaw("Mouse Y") * (invertVertical ? sensitivity : -sensitivity);
 
-        if (Input.GetMouseButtonDown(0) && inCamera)
-        {
-            CaptureImage();
-        }
-
-        if (Input.GetMouseButtonDown(1)) EnterCamera();
-        if (Input.GetMouseButtonUp(1)) ExitCamera();
+        
 
         ClampRotation();
     }
@@ -151,17 +189,60 @@ public class CameraController : MonoBehaviour
         handheldCam.gameObject.SetActive(inCamera);
     }
 
+    void SetFlash(bool state)
+    {
+        flash = state;
+
+        flashIndicator.SetActive(flash);
+    }
+
 
     void CaptureImage()
     {
-        handheldCam.targetTexture = outputTexture;
-        handheldCam.Render();
+        StartCoroutine(CaptureImageCor());
 
-        Texture2D image = ToTexture2D(outputTexture, format);
-        outputImage.texture = image;
-        handheldCam.targetTexture = null;
 
-        CheckObjectsInPhoto();
+
+        IEnumerator CaptureImageCor()
+        {
+            if (flash)
+            {
+                SetFlash(false);
+
+                intensitySpring.SetValue(intensitySpring.Max);
+                flashProgress = 0f;
+            }
+
+
+            yield return new WaitForSeconds(imageDelay);
+
+
+            handheldCam.targetTexture = outputTexture;
+            handheldCam.Render();
+
+            Texture2D image = ToTexture2D(outputTexture, format);
+            outputImage.texture = image;
+            handheldCam.targetTexture = null;
+            
+
+            CheckObjectsInPhoto();
+            SaveImageAsPNG();
+
+
+            void SaveImageAsPNG()
+            {
+                Color[] pixels = image.GetPixels();
+                for (int i = 0; i < pixels.Length; i++) pixels[i] = pixels[i].gamma;
+                image.SetPixels(pixels);
+                //image.Apply();
+
+
+                string directory = Path.Combine(Application.dataPath, "Image Test");
+                string path = Path.Combine(directory, "Image1.png");
+                if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+                File.WriteAllBytes(path, image.EncodeToPNG());
+            }
+        }
     }
 
     void CheckObjectsInPhoto()

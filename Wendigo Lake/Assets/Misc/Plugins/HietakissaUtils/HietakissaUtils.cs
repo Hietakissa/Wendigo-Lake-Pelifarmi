@@ -693,6 +693,160 @@ namespace HietakissaUtils
         }
     }
 
+    public static class SpringUtils
+    {
+        static DampedSpringMotionParams motionParams = new DampedSpringMotionParams();
+
+        class DampedSpringMotionParams
+        {
+            public float posPosCoef, posVelCoef;
+            public float velPosCoef, velVelCoef;
+        };
+
+
+        public static void CalculateHarmonicSpringMotion(ref float position, ref float velocity, float goalPos, float frequency = 3.5f, float damping = 0.5f, float deltaTime = float.Epsilon)
+        {
+            if (deltaTime == float.Epsilon) deltaTime = Time.deltaTime;
+
+            CalculateDampedSpringMotionParams(ref motionParams, deltaTime, frequency, damping);
+            UpdateDampedSpringMotion(ref position, ref velocity, goalPos, motionParams);
+        }
+
+        static void CalculateDampedSpringMotionParams(ref DampedSpringMotionParams springParams, float deltaTime, float angularFrequency, float dampingRatio)
+        {
+            if (dampingRatio < 0.0f) dampingRatio = 0.0f;
+            if (angularFrequency < 0.0f) angularFrequency = 0.0f;
+
+            if (angularFrequency < float.Epsilon)
+            {
+                springParams.posPosCoef = 1.0f; springParams.posVelCoef = 0.0f;
+                springParams.velPosCoef = 0.0f; springParams.velVelCoef = 1.0f;
+                return;
+            }
+
+
+            if (dampingRatio > 1.0f + float.Epsilon)
+            {
+                // over-damped
+                float za = -angularFrequency * dampingRatio;
+                float zb = angularFrequency * Mathf.Sqrt(dampingRatio * dampingRatio - 1f);
+                float z1 = za - zb;
+                float z2 = za + zb;
+
+                float e1 = Mathf.Exp(z1 * deltaTime);
+                float e2 = Mathf.Exp(z2 * deltaTime);
+
+                float invTwoZb = 1f / (2f * zb);
+
+                float e1_Over_TwoZb = e1 * invTwoZb;
+                float e2_Over_TwoZb = e2 * invTwoZb;
+
+                float z1e1_Over_TwoZb = z1 * e1_Over_TwoZb;
+                float z2e2_Over_TwoZb = z2 * e2_Over_TwoZb;
+
+                springParams.posPosCoef = e1_Over_TwoZb * z2 - z2e2_Over_TwoZb + e2;
+                springParams.posVelCoef = -e1_Over_TwoZb + e2_Over_TwoZb;
+
+                springParams.velPosCoef = (z1e1_Over_TwoZb - z2e2_Over_TwoZb + e2) * z2;
+                springParams.velVelCoef = -z1e1_Over_TwoZb + z2e2_Over_TwoZb;
+            }
+            else if (dampingRatio < 1f - float.Epsilon)
+            {
+                // under-damped
+                float omegaZeta = angularFrequency * dampingRatio;
+                float alpha = angularFrequency * Mathf.Sqrt(1f - dampingRatio * dampingRatio);
+
+                float expTerm = Mathf.Exp(-omegaZeta * deltaTime);
+                float cosTerm = Mathf.Cos(alpha * deltaTime);
+                float sinTerm = Mathf.Sin(alpha * deltaTime);
+
+                float invAlpha = 1f / alpha;
+
+                float expSin = expTerm * sinTerm;
+                float expCos = expTerm * cosTerm;
+                float expOmegaZetaSin_Over_Alpha = expTerm * omegaZeta * sinTerm * invAlpha;
+
+                springParams.posPosCoef = expCos + expOmegaZetaSin_Over_Alpha;
+                springParams.posVelCoef = expSin * invAlpha;
+
+                springParams.velPosCoef = -expSin * alpha - omegaZeta * expOmegaZetaSin_Over_Alpha;
+                springParams.velVelCoef = expCos - expOmegaZetaSin_Over_Alpha;
+            }
+            else
+            {
+                // critically damped
+                float expTerm = Mathf.Exp(-angularFrequency * deltaTime);
+                float timeExp = deltaTime * expTerm;
+                float timeExpFreq = timeExp * angularFrequency;
+
+                springParams.posPosCoef = timeExpFreq + expTerm;
+                springParams.posVelCoef = timeExp;
+
+                springParams.velPosCoef = -angularFrequency * timeExpFreq;
+                springParams.velVelCoef = -timeExpFreq + expTerm;
+            }
+        }
+        static void UpdateDampedSpringMotion(ref float pPos, ref float pVel, float equilibriumPos, in DampedSpringMotionParams springParams)
+        {
+            float oldPos = pPos - equilibriumPos;
+            float oldVel = pVel;
+
+            pPos = oldPos * springParams.posPosCoef + oldVel * springParams.posVelCoef + equilibriumPos;
+            pVel = oldPos * springParams.velPosCoef + oldVel * springParams.velVelCoef;
+        }
+    }
+
+    [Serializable]
+    public class Spring
+    {
+        [SerializeField] float frequency = 3f;
+        [SerializeField][Range(0f, 1f)] float damping = 0.5f;
+        [SerializeField] float goal = 1f;
+        [field: SerializeField] public float Min { get; private set; } = -Mathf.Infinity;
+        [field: SerializeField] public float Max { get; private set; } = Mathf.Infinity;
+
+        public float Velocity => velocity;
+        float velocity;
+        float pos;
+
+
+        Spring() { } // Stupid workaround so Unity properly serializes the class with the correct default values
+
+        public Spring(float frequency, float damping, float start = 0f)
+        {
+            this.frequency = frequency;
+            this.damping = damping;
+
+            pos = start;
+            goal = start;
+        }
+
+
+        public void Update(float deltaTime = float.Epsilon)
+        {
+            SpringUtils.CalculateHarmonicSpringMotion(ref pos, ref velocity, goal, frequency, damping, deltaTime);
+            pos = Mathf.Clamp(pos, Min, Max);
+        }
+
+        public float GetValue()
+        {
+            Update();
+            return pos;
+        }
+        public float GetValueWithoutUpdate() => pos;
+
+        public void SetGoal(float goal) => this.goal = Mathf.Clamp(goal, Min, Max);
+
+        public void AddForce(float force) => velocity += force;
+        public void SetVelocity(float velocity) => this.velocity = velocity;
+        public void SetValue(float pos) => this.pos = pos;
+        public void SetMinMax(float min, float max)
+        {
+            Min = min;
+            Max = max;
+        }
+    }
+
     [Serializable]
     public class LootTable<TTableItem>
     {
