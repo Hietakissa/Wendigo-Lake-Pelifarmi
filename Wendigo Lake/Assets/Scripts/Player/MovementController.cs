@@ -38,6 +38,7 @@ public class MovementController : MonoBehaviour
     const float GRAVITY = 9.81f;
 
     [Header("Casts")]
+    [SerializeField] LayerMask whatIsGround;
     [SerializeField] float sphereCastRadius = 0.35f;
     [SerializeField] float sphereCastOffset = 0.03f;
     [SerializeField] float rayCastOffset = 0.03f;
@@ -65,8 +66,8 @@ public class MovementController : MonoBehaviour
     
     void Update()
     {
-        isGrounded = Physics.SphereCast(transform.position + Vector3.up * (sphereCastRadius + sphereCastOffset), sphereCastRadius, Vector3.down, out sphereCast, sphereCastOffset * 2);
-        Physics.Raycast(transform.position + Vector3.up * rayCastOffset, Vector3.down, out groundRay, rayCastOffset * 2);
+        isGrounded = Physics.SphereCast(transform.position + Vector3.up * (sphereCastRadius + sphereCastOffset), sphereCastRadius, Vector3.down, out sphereCast, sphereCastOffset * 2, whatIsGround);
+        Physics.Raycast(transform.position + Vector3.up * rayCastOffset, Vector3.down, out groundRay, rayCastOffset * 2, whatIsGround);
 
         if (isGrounded && !lastGrounded) StartGround();
         else if (!isGrounded && lastGrounded) StartAir();
@@ -82,7 +83,7 @@ public class MovementController : MonoBehaviour
         HandleCrouching();
         HandleJumping();
 
-        if (velocity.y > 0f && Physics.SphereCast(transform.position, sphereCastRadius, Vector3.up, out RaycastHit hit, 1.8f - sphereCastRadius * 0.9f)) velocity.y = 0f;
+        if (velocity.y > 0f && Physics.SphereCast(transform.position, sphereCastRadius, Vector3.up, out RaycastHit hit, 1.8f - sphereCastRadius * 0.9f, whatIsGround)) velocity.y = 0f;
 
 
         lastGrounded = isGrounded;
@@ -188,7 +189,7 @@ public class MovementController : MonoBehaviour
             }
             else if (isCrouching)
             {
-                if (!Physics.SphereCast(transform.position + Vector3.up * (sphereCastRadius + sphereCastOffset), sphereCastRadius, Vector3.up, out RaycastHit hit, 2f - sphereCastRadius * 2 - sphereCastOffset))
+                if (!Physics.SphereCast(transform.position + Vector3.up * (sphereCastRadius + sphereCastOffset), sphereCastRadius, Vector3.up, out RaycastHit hit, 2f - sphereCastRadius * 2 - sphereCastOffset, whatIsGround))
                 {
                     EndCrouch();
                 }
@@ -279,7 +280,7 @@ public class MovementController : MonoBehaviour
         void StartAir()
         {
             // Check if there's ground close enough -> if so snap to it and stay on the ground, for walking down stairs
-            if (velocity.y < 0f && Physics.SphereCast(transform.position + Vector3.up * (sphereCastRadius + sphereCastOffset), sphereCastRadius, Vector3.down, out sphereCast, sphereCastOffset + cc.stepOffset * 0.5f))
+            if (velocity.y < 0f && Physics.SphereCast(transform.position + Vector3.up * (sphereCastRadius + sphereCastOffset), sphereCastRadius, Vector3.down, out sphereCast, sphereCastOffset + cc.stepOffset * 0.5f, whatIsGround))
             {
                 Teleport(transform.position.SetY(sphereCast.point.y));
                 return;
@@ -375,7 +376,7 @@ public class MovementController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawRay(transform.position, moveDir);
 
-        if (Physics.SphereCast(transform.position + Vector3.up * (sphereCastRadius + sphereCastOffset), sphereCastRadius, Vector3.down, out sphereCast, sphereCastOffset * 2))
+        if (Physics.SphereCast(transform.position + Vector3.up * (sphereCastRadius + sphereCastOffset), sphereCastRadius, Vector3.down, out sphereCast, sphereCastOffset * 2, whatIsGround))
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(new Vector3(transform.position.x, sphereCast.point.y, transform.position.z) + Vector3.up * sphereCastRadius, sphereCastRadius);

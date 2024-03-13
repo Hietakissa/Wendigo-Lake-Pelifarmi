@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [field: SerializeField] public Transform PlayerCameraTransform { get; private set; }
     public List<PhotographableObject> photographableObjects { get; private set; }
 
 

@@ -46,6 +46,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] Spring intensitySpring;
     [SerializeField] Image[] flashProgressImages;
     [SerializeField] GameObject flashIndicator;
+    [SerializeField] bool outputImageToDisk;
     float flashProgress;
     bool flash;
 
@@ -226,7 +227,8 @@ public class CameraController : MonoBehaviour
             
 
             CheckObjectsInPhoto();
-            SaveImageAsPNG();
+
+            if (outputImageToDisk) SaveImageAsPNG();
 
 
             void SaveImageAsPNG()
