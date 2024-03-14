@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PhotographableObject : MonoBehaviour, IPhotographable
 {
-    [SerializeField] UnityEvent onPhotographed;
+    [SerializeField] UnityEvent<ImageParams> onPhotographed;
     public int ID { get; private set; }
 
     void Start()
@@ -11,11 +11,11 @@ public class PhotographableObject : MonoBehaviour, IPhotographable
         GameManager.Instance.RegisterPhotographableObject(this);
     }
 
-    public void CapturedInImage(int objectID)
+    public void CapturedInImage(int objectID, in ImageParams imageParams)
     {
         ID = objectID;
         //Destroy(gameObject);
         //GameManager.Instance.UnregisterPhotographableObject(objectID);
-        onPhotographed?.Invoke();
+        onPhotographed?.Invoke(imageParams);
     }
 }

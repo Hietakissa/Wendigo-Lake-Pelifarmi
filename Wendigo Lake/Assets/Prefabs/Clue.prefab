@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 6118013551989722169}
   - component: {fileID: 7681486398648306781}
   - component: {fileID: 181557123010166544}
+  - component: {fileID: 538302337976871306}
   m_Layer: 0
   m_Name: Clue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6118013551989722169
 Transform:
@@ -97,6 +98,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &538302337976871306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7352041969268023689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79dc1eb4ba405e54c901a9d626707db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPhotographed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &4260261159968690258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -159,6 +175,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Clue Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 5706736496050494289, guid: bf023bafe780ba3419db22f5cdb9ec06,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

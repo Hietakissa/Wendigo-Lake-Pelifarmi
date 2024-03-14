@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be52a2911861604c8a068a5cbf57c2b, type: 3}
+  m_Name: RandomTest
+  m_EditorClassIdentifier: 
+  mode: 0
+  texts:
+  - hehehehaaa jippii :)
+  - "t\xE4m\xE4 on toinen teksti"
+  - "Eiks sen idea ollu et se luo tunnelmaa ja tekee siit\xE4 wendigosta spookimman
+    jos et voi flashbangaa sit\xE4 joka ikinen sekunti ahfjgkg"
+  - "no joo totta ei oo oikeen mit\xE4\xE4 syyt\xE4 laittaa sit\xE4 salamaa pois,
+    alunperin ideana oli et jos pelaaja haluu randomisti ottaa kuvia ni se voi ilman
+    et alkaa se cooldown, mut ei se kuvaaminen kyl tuu olee niin mielenkiintosta
+    et se pelaaja ees haluais ottaa muuten vaan kuvia"

@@ -1,8 +1,7 @@
+using System.Collections;
 using HietakissaUtils;
 using UnityEngine.UI;
 using UnityEngine;
-using System.Collections;
-using TMPro;
 using System.IO;
 
 public class CameraController : MonoBehaviour
@@ -48,7 +47,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] GameObject flashIndicator;
     [SerializeField] bool outputImageToDisk;
     float flashProgress;
-    bool flash;
+    bool flash = true;
+    bool photoDelay;
+    bool flashReady => flashProgress >= flashCooldown;
 
     bool inCamera;
 
@@ -85,8 +86,9 @@ public class CameraController : MonoBehaviour
 
         if (inCamera)
         {
-            if (Input.GetMouseButtonDown(0)) CaptureImage();
-            else if (Input.GetKeyDown(KeyCode.F) && flashProgress >= flashCooldown) SetFlash(!flash);
+            if (Input.GetMouseButtonDown(0) && !photoDelay) CaptureImage();
+            //else if (Input.GetKeyDown(KeyCode.F) && flashProgress >= flashCooldown) SetFlash(!flash);
+            flashIndicator.SetActive(flashReady);
         }
 
         // bad bad code but no time
@@ -192,7 +194,8 @@ public class CameraController : MonoBehaviour
 
     void SetFlash(bool state)
     {
-        flash = state;
+        //flash = state;
+        flash = true;
 
         flashIndicator.SetActive(flash);
     }
@@ -203,20 +206,21 @@ public class CameraController : MonoBehaviour
         StartCoroutine(CaptureImageCor());
 
 
-
         IEnumerator CaptureImageCor()
         {
-            if (flash)
+            bool usedFlash = false;
+            if (flash && flashReady)
             {
+                usedFlash = true;
                 SetFlash(false);
 
                 intensitySpring.SetValue(intensitySpring.Max);
                 flashProgress = 0f;
             }
 
-
+            photoDelay = true;
             yield return new WaitForSeconds(imageDelay);
-
+            photoDelay = false;
 
             handheldCam.targetTexture = outputTexture;
             handheldCam.Render();
@@ -226,7 +230,7 @@ public class CameraController : MonoBehaviour
             handheldCam.targetTexture = null;
             
 
-            CheckObjectsInPhoto();
+            CheckObjectsInPhoto(usedFlash);
 
             if (outputImageToDisk) SaveImageAsPNG();
 
@@ -247,17 +251,26 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void CheckObjectsInPhoto()
+    void CheckObjectsInPhoto(bool usedFlash)
     {
         int count = GameManager.Instance.photographableObjects.Count;
         for (int i = count - 1; i >= 0; i--)
         {
             PhotographableObject photographableObject = GameManager.Instance.photographableObjects[i];
 
+            if (photographableObject == null)
+            {
+                GameManager.Instance.photographableObjects.RemoveAt(i);
+                continue;
+            }
             if (!photographableObject.gameObject.activeSelf) continue;
 
             Vector3 point = handheldCam.WorldToViewportPoint(photographableObject.transform.position);
-            if (PointInView(point) && DistanceCheck(photographableObject.transform.position) && LOSCheck(photographableObject.transform)) photographableObject.CapturedInImage(i);
+            if (PointInView(point) && DistanceCheck(photographableObject.transform.position) && LOSCheck(photographableObject.transform))
+            {
+                ImageParams imageParams = new ImageParams(usedFlash, false);
+                photographableObject.CapturedInImage(i, imageParams);
+            }
         }
 
         //foreach (PhotographableObject photographableObject in GameManager.Instance.photographableObjects)
@@ -269,7 +282,9 @@ public class CameraController : MonoBehaviour
 
         bool PointInView(Vector3 point)
         {
-            return point.z > 0f && point.x >= 0f && point.x <= 1f && point.y >= 0f && point.y <= 1f;
+            const float minThreshold = 0.3f;
+            const float maxThreshold = 0.7f;
+            return point.z > 0f && point.x >= minThreshold && point.x <= maxThreshold && point.y >= minThreshold && point.y <= maxThreshold;
         }
 
         bool DistanceCheck(Vector3 point)
