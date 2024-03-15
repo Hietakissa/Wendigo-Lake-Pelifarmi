@@ -1273,11 +1273,19 @@ namespace HietakissaUtils
             }
 
             static Dictionary<float, WaitForSeconds> waitDictionary = new Dictionary<float, WaitForSeconds>();
+            static Dictionary<float, WaitForSecondsRealtime> unscaledWaitDictionary = new Dictionary<float, WaitForSecondsRealtime>();
             static WaitForSeconds waitCache;
+            static WaitForSecondsRealtime waitUnscaledCache;
+
             public static WaitForSeconds GetWaitForSeconds(float time)
             {
                 if (waitDictionary.TryGetValue(time, out waitCache)) return waitCache;
                 return waitDictionary[time] = new WaitForSeconds(time);
+            }
+            public static WaitForSecondsRealtime GetUnscaledWaitForSeconds(float time)
+            {
+                if (unscaledWaitDictionary.TryGetValue(time, out waitUnscaledCache)) return waitUnscaledCache;
+                return unscaledWaitDictionary[time] = new WaitForSecondsRealtime(time);
             }
         }
 

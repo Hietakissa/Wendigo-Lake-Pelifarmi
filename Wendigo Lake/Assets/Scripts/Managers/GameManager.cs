@@ -46,12 +46,14 @@ public class GameManager : MonoBehaviour
 
     void EventManager_OnPause()
     {
+        Time.timeScale = float.Epsilon;
         Paused = true;
         ShowMouse();
     }
 
     void EventManager_OnUnPause()
     {
+        Time.timeScale = 1f;
         Paused = false;
         HideMouse();
     }

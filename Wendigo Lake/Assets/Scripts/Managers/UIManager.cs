@@ -90,7 +90,8 @@ public class UIManager : MonoBehaviour
             float typeTime = 0f;
             while (true)
             {
-                typeTime += typeSpeed * Time.deltaTime;
+                //typeTime += typeSpeed * Time.deltaTime;
+                typeTime += typeSpeed * Time.unscaledDeltaTime;
 
                 int newIndices = typeTime.RoundDown();
                 typeTime -= newIndices;
@@ -102,7 +103,8 @@ public class UIManager : MonoBehaviour
                 yield return null;
             }
 
-            yield return QOL.GetWaitForSeconds(3f);
+            //yield return QOL.GetWaitForSeconds(3f);
+            yield return QOL.GetUnscaledWaitForSeconds(3f);
         }
     }
 
