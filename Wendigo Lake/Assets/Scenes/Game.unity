@@ -526,7 +526,7 @@ GameObject:
   - component: {fileID: 237174084}
   - component: {fileID: 237174083}
   m_Layer: 0
-  m_Name: Monologue Test (1)
+  m_Name: Dialogue Test (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1650,7 +1650,7 @@ GameObject:
   - component: {fileID: 638402945}
   - component: {fileID: 638402947}
   m_Layer: 0
-  m_Name: Monologue Test
+  m_Name: Dialogue Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2008,8 +2008,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: cf3e23fe34a02f54aac69b252dae8790, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

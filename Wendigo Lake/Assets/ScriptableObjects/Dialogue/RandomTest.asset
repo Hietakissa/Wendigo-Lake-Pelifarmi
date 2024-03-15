@@ -20,3 +20,8 @@ MonoBehaviour:
     text: this is some text that delilah is talking
   - <speaker>k__BackingField: 0
     text: this is some text that no one is speaking
+  - <speaker>k__BackingField: 0
+    text: "a lot of text: Nii se kamera ukko n\xE4kkee ne sarvet ja ottaa kuvan niist\xE4
+      vai ottaako se jostai muusta kuvan ja sit ne vaa on siel taustal Nii se kamera
+      ukko n\xE4kkee ne sarvet ja ottaa kuvan niist\xE4 vai ottaako se jostai muusta
+      kuvan ja sit ne vaa on siel taustal"
