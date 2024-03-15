@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI dialogueText;
 
     [SerializeField] GameObject puzzleUI;
+    [SerializeField] TextCollectionSO[] clueCompletionDialogues;
 
     List<DraggableClue> draggableClues = new List<DraggableClue>();
 
@@ -115,6 +116,9 @@ public class UIManager : MonoBehaviour
             if (!IDMatch(clue, currentClue)) continue;
             if (CheckForOverlap((RectTransform)currentClue.transform, (RectTransform)clue.transform))
             {
+                TextCollectionSO clueCompletion = clueCompletionDialogues[clue.clue.ID];
+                if (clueCompletion) EventManager.UI.PlayDialogue(clueCompletion);
+
                 Destroy(clue.gameObject);
                 Destroy(currentClue.gameObject);
             }

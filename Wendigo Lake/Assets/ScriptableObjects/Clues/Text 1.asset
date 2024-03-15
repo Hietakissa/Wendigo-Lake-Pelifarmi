@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded8eb3a2a9e9ea46a4812479a81522e, type: 3}
   m_Name: Text 1
   m_EditorClassIdentifier: 
-  <ID>k__BackingField: 0
+  <ID>k__BackingField: 1
   textTest: 0

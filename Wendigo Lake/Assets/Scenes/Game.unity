@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 131154007}
   - component: {fileID: 131154006}
   m_Layer: 5
-  m_Name: Drag Text 2
+  m_Name: Drag Text 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -910,7 +910,7 @@ GameObject:
   - component: {fileID: 384849004}
   - component: {fileID: 384849003}
   m_Layer: 5
-  m_Name: Drag Image 1
+  m_Name: Drag Image 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1190,7 +1190,7 @@ GameObject:
   - component: {fileID: 482644694}
   - component: {fileID: 482644693}
   m_Layer: 5
-  m_Name: Drag Text 3
+  m_Name: Drag Text 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1339,7 +1339,7 @@ GameObject:
   - component: {fileID: 491490358}
   - component: {fileID: 491490357}
   m_Layer: 5
-  m_Name: Drag Text 1
+  m_Name: Drag Text 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2930,7 +2930,7 @@ GameObject:
   - component: {fileID: 1426559616}
   - component: {fileID: 1426559615}
   m_Layer: 5
-  m_Name: Drag Image 3
+  m_Name: Drag Image 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4135,6 +4135,10 @@ MonoBehaviour:
   dialogueUI: {fileID: 1554749950}
   dialogueText: {fileID: 2037445923}
   puzzleUI: {fileID: 533090335}
+  clueCompletionDialogues:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 4f1277f6b81c5df4cbd261a8d6e6f1bc, type: 2}
+  - {fileID: 0}
 --- !u!1 &1980338283
 GameObject:
   m_ObjectHideFlags: 0
@@ -4148,7 +4152,7 @@ GameObject:
   - component: {fileID: 1980338286}
   - component: {fileID: 1980338285}
   m_Layer: 5
-  m_Name: Drag Image 2
+  m_Name: Drag Image 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

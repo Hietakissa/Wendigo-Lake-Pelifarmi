@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e199a5469a2b42341b46c42d6dd4f5cc, type: 3}
-  m_Name: Image 3
+  m_Name: Image 0
   m_EditorClassIdentifier: 
-  <ID>k__BackingField: 2
+  <ID>k__BackingField: 0
   imageTest: 0
