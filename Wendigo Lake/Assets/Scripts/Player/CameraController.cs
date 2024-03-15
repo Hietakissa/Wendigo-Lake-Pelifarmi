@@ -58,8 +58,7 @@ public class CameraController : MonoBehaviour
     {
         ExitCamera();
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        GameManager.HideMouse();
 
         //yRot = transform.rotation.y;
         SetRotation(transform.rotation);
@@ -69,6 +68,8 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
+        if (GameManager.Instance.Paused) return;
+
         GetInput();
         Rotate();
         Move();
@@ -273,12 +274,6 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        //foreach (PhotographableObject photographableObject in GameManager.Instance.photographableObjects)
-        //{
-        //    Vector3 point = handheldCam.WorldToViewportPoint(photographableObject.transform.position);
-        //    if (PointInView(point)) photographableObject.CapturedInImage();
-        //}
-
 
         bool PointInView(Vector3 point)
         {
@@ -294,7 +289,14 @@ public class CameraController : MonoBehaviour
 
         bool LOSCheck(Transform t)
         {
-            return Physics.Linecast(transform.position, t.position, out RaycastHit hit) && hit.transform == t;
+            //return Physics.Linecast(transform.position, t.position, out RaycastHit hit) && hit.transform == t;
+
+            if (Physics.Linecast(transform.position, t.position, out RaycastHit hit))
+            {
+                return hit.transform == t;
+            }
+            else return true;
+            //return !Physics.Linecast(transform.position, t.position);
         }
     }
 

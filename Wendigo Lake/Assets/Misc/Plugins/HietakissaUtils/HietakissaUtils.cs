@@ -225,6 +225,8 @@ namespace HietakissaUtils
         {
             if (!gameObject.TryGetComponent(out component)) component = gameObject.AddComponent<TType>();
         }
+
+        public static Vector3 GetCanvasPositionForElement(this Canvas canvas, RectTransform uiElement) => canvas.transform.InverseTransformPoint(uiElement.position);
     }
 
     public abstract class Maf

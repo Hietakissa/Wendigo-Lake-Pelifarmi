@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HietakissaUtils.QOL;
 using System.Collections;
 using HietakissaUtils;
@@ -8,51 +9,83 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] float typeSpeed;
 
-    [SerializeField] GameObject monologue;
-    [SerializeField] TextMeshProUGUI monologueText;
+    [Header("References")]
+    [SerializeField] GameObject dialogueUI;
+    [SerializeField] TextMeshProUGUI dialogueText;
 
-    Coroutine monologueRoutine;
+    [SerializeField] GameObject puzzleUI;
 
-    void EventManager_OnPlayMonologue(TextCollectionSO textCollection)
+    List<DraggableClue> draggableClues = new List<DraggableClue>();
+
+    Queue<TextCollectionSO> dialogueQueue = new Queue<TextCollectionSO>();
+    Coroutine dialogueRoutine;
+
+    Canvas canvas;
+
+
+    void Awake()
     {
-        if (monologueRoutine != null) StopCoroutine(monologueRoutine);
-        monologueRoutine = StartCoroutine(PlayMonologueCor(textCollection));
+        canvas = GetComponent<Canvas>();
     }
 
-    IEnumerator PlayMonologueCor(TextCollectionSO textCollection)
+
+    void EventManager_OnPlayDialogue(TextCollectionSO textCollection)
     {
-        monologue.SetActive(true);
-
-        int maxMonologueIndex = textCollection.texts.Length;
-
-        string str = "";
-        if (textCollection.mode == TextCollectionMode.Random)
+        Debug.Log($"Dialogue already playing, queueing dialogue.");
+        dialogueQueue.Enqueue(textCollection);
+        if (dialogueRoutine == null)
         {
-            str = textCollection.texts.RandomElement();
-            yield return DisplayString(str);
+            Debug.Log($"Dialogue routine not running, starting...");
+            dialogueRoutine = StartCoroutine(PlayDialogue());
         }
-        else if (textCollection.mode == TextCollectionMode.Sequential)
+    }
+
+    IEnumerator PlayDialogue()
+    {
+        dialogueUI.SetActive(true);
+
+        while (dialogueQueue.Count > 0)
         {
-            for (int i = 0; i < maxMonologueIndex; i++)
+            TextCollectionSO textCollection = dialogueQueue.Dequeue();
+
+            int maxDialogueIndex = textCollection.dialogue.Length;
+
+            if (textCollection.mode == TextCollectionMode.Random)
             {
-                str = textCollection.texts[i];
-                yield return DisplayString(str);
+                yield return DisplayDialogue(textCollection.dialogue.RandomElement());
             }
-            //while (monologueIndex < maxMonologueIndex)
-            //{
-            //    str = textCollection.texts[monologueIndex];
-            //    yield return DisplayString(str);
-            //    monologueIndex++;
-            //}
+            else if (textCollection.mode == TextCollectionMode.Sequential)
+            {
+                for (int i = 0; i < maxDialogueIndex; i++)
+                {
+                    yield return DisplayDialogue(textCollection.dialogue[i]);
+                }
+            }
+
+
+            
+            if (dialogueQueue.Count > 0)
+            {
+                // only wait if there's more dialogue left
+
+                Debug.Log($"Dialogue ended, playing next one...");
+
+                dialogueUI.SetActive(false);
+                yield return QOL.GetWaitForSeconds(3f);
+                dialogueUI.SetActive(true);
+            }
         }
-        
-        monologue.SetActive(false);
+
+        dialogueUI.SetActive(false);
+
+        Debug.Log($"Dialogue routine finished successfully.");
+        dialogueRoutine = null;
 
 
-        IEnumerator DisplayString(string str)
+        IEnumerator DisplayDialogue(DialogueElement dialogue)
         {
             int endIndex = 0;
-            int maxIndex = str.Length;
+            int maxIndex = dialogue.Text.Length;
             float typeTime = 0f;
             while (true)
             {
@@ -62,7 +95,8 @@ public class UIManager : MonoBehaviour
                 typeTime -= newIndices;
                 endIndex = Mathf.Min(maxIndex, endIndex + newIndices);
 
-                monologueText.text = $"Me: {str.Substring(0, endIndex)}";
+                //monologueText.text = $"{(dialogue.speaker == Person.None ? "" : $"{dialogue.speaker}: ")}{dialogue.Text.Substring(0, endIndex)}";
+                dialogueText.text = $"{FormatSpeaker(dialogue.speaker)}{dialogue.Text.Substring(0, endIndex)}";
                 if (endIndex == maxIndex) break;
                 yield return null;
             }
@@ -71,7 +105,68 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    string FormatSpeaker(Person person) => $"{(person == Person.None ? "" : $"{person}: ")}";
 
-    void OnEnable() => EventManager.OnPlayMonologue += EventManager_OnPlayMonologue;
-    void OnDisable() => EventManager.OnPlayMonologue -= EventManager_OnPlayMonologue;
+    void EventManager_OnEndDrag(DraggableClue clue)
+    {
+        foreach (DraggableClue currentClue in draggableClues)
+        {
+            if (TypeMatch(clue, currentClue)) continue;
+            if (!IDMatch(clue, currentClue)) continue;
+            if (CheckForOverlap((RectTransform)currentClue.transform, (RectTransform)clue.transform))
+            {
+                Destroy(clue.gameObject);
+                Destroy(currentClue.gameObject);
+            }
+        }
+
+
+        bool TypeMatch(DraggableClue a, DraggableClue b) => a.clue.GetClueType == b.clue.GetClueType;
+        bool IDMatch(DraggableClue a, DraggableClue b) => a.clue.ID == b.clue.ID;
+
+        bool CheckForOverlap(RectTransform rect, RectTransform draggedRect)
+        {
+            Vector3 rectPos = canvas.GetCanvasPositionForElement(rect);
+            Vector3 point = canvas.GetCanvasPositionForElement(draggedRect);
+
+            const float size = 0.5f;
+            return point.x > rectPos.x - rect.sizeDelta.x * size && point.x < rectPos.x + rect.sizeDelta.x * size && point.y > rectPos.y - rect.sizeDelta.y * size && point.y < rectPos.y + rect.sizeDelta.y * size;
+        }
+    }
+
+    void EventManager_OnRegisterDraggableClue(DraggableClue clue) => draggableClues.Add(clue);
+
+
+    void EventManager_OnPause()
+    {
+        puzzleUI.SetActive(true);
+    }
+
+    void EventManager_OnUnPause()
+    {
+        puzzleUI.SetActive(false);
+    }
+
+
+    void OnEnable()
+    {
+        EventManager.UI.OnPlayDialogue += EventManager_OnPlayDialogue;
+        EventManager.UI.OnEndDrag += EventManager_OnEndDrag;
+
+        EventManager.UI.OnRegisterDraggableClue += EventManager_OnRegisterDraggableClue;
+
+        EventManager.OnPause += EventManager_OnPause;
+        EventManager.OnUnPause += EventManager_OnUnPause;
+    }
+
+    void OnDisable()
+    {
+        EventManager.UI.OnPlayDialogue -= EventManager_OnPlayDialogue;
+        EventManager.UI.OnEndDrag -= EventManager_OnEndDrag;
+
+        EventManager.UI.OnRegisterDraggableClue -= EventManager_OnRegisterDraggableClue;
+
+        EventManager.OnPause -= EventManager_OnPause;
+        EventManager.OnUnPause -= EventManager_OnUnPause;
+    }
 }

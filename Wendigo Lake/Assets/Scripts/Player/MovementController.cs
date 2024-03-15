@@ -66,6 +66,8 @@ public class MovementController : MonoBehaviour
     
     void Update()
     {
+        if (GameManager.Instance.Paused) return;
+
         isGrounded = Physics.SphereCast(transform.position + Vector3.up * (sphereCastRadius + sphereCastOffset), sphereCastRadius, Vector3.down, out sphereCast, sphereCastOffset * 2, whatIsGround);
         Physics.Raycast(transform.position + Vector3.up * rayCastOffset, Vector3.down, out groundRay, rayCastOffset * 2, whatIsGround);
 

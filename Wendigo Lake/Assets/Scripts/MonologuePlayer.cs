@@ -6,6 +6,6 @@ public class MonologuePlayer : MonoBehaviour
 
     public void PlayMonologue()
     {
-        EventManager.PlayMonologue(monologueText);
+        EventManager.UI.PlayDialogue(monologueText);
     }
 }
