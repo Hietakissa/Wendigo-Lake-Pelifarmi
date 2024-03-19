@@ -6,7 +6,14 @@ using System.IO;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] float sensitivity = 1f;
+    public Slider mainSlider;
+    public float sensitivity;
+
+    void SetSensitivity()
+    {
+        sensitivity(mainSlider.value);
+    }
+
     [SerializeField] bool invertVertical;
     [SerializeField] bool invertHorizontal;
 
