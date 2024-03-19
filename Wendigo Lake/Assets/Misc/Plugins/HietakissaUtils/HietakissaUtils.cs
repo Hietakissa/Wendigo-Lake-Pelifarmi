@@ -227,6 +227,12 @@ namespace HietakissaUtils
         }
 
         public static Vector3 GetCanvasPositionForElement(this Canvas canvas, RectTransform uiElement) => canvas.transform.InverseTransformPoint(uiElement.position);
+
+        public static void AlignToHit(this Transform t, RaycastHit hit)
+        {
+            t.position = hit.point;
+            t.rotation = Quaternion.FromToRotation(t.up, hit.normal) * t.rotation;
+        }
     }
 
     public abstract class Maf

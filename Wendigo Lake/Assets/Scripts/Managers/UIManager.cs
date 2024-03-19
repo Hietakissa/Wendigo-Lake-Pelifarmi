@@ -112,13 +112,15 @@ public class UIManager : MonoBehaviour
 
     void EventManager_OnEndDrag(DraggableClue clue)
     {
+        if (clue.clueData.GetClueType != ClueType.Text) return;
+
         foreach (DraggableClue currentClue in draggableClues)
         {
             if (TypeMatch(clue, currentClue)) continue;
             if (!IDMatch(clue, currentClue)) continue;
             if (CheckForOverlap((RectTransform)currentClue.transform, (RectTransform)clue.transform))
             {
-                TextCollectionSO clueCompletion = clueCompletionDialogues[clue.clue.ID];
+                TextCollectionSO clueCompletion = clueCompletionDialogues[clue.clueData.ID];
                 if (clueCompletion) EventManager.UI.PlayDialogue(clueCompletion);
 
                 Destroy(clue.gameObject);
@@ -127,8 +129,8 @@ public class UIManager : MonoBehaviour
         }
 
 
-        bool TypeMatch(DraggableClue a, DraggableClue b) => a.clue.GetClueType == b.clue.GetClueType;
-        bool IDMatch(DraggableClue a, DraggableClue b) => a.clue.ID == b.clue.ID;
+        bool TypeMatch(DraggableClue a, DraggableClue b) => a.clueData.GetClueType == b.clueData.GetClueType;
+        bool IDMatch(DraggableClue a, DraggableClue b) => a.clueData.ID == b.clueData.ID;
 
         bool CheckForOverlap(RectTransform rect, RectTransform draggedRect)
         {

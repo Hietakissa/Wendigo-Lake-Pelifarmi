@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class DraggableClue : MonoBehaviour, IDragHandler, IBeginDragHandler,  IEndDragHandler
 {
-    [field: SerializeField] public ClueSO clue { get; private set; }
-    Vector2 offset;
+    [field: SerializeField] public ClueSO clueData { get; private set; }
+    Vector2 dragOffset;
 
 
     void Start()
@@ -15,7 +15,7 @@ public class DraggableClue : MonoBehaviour, IDragHandler, IBeginDragHandler,  IE
 
     void SetPosition(Vector2 mousePos)
     {
-        transform.position = mousePos + offset;
+        transform.position = mousePos + dragOffset;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -25,7 +25,7 @@ public class DraggableClue : MonoBehaviour, IDragHandler, IBeginDragHandler,  IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        offset = (Vector2)transform.position - eventData.position;
+        dragOffset = (Vector2)transform.position - eventData.position;
         SetPosition(eventData.position);
     }
 
