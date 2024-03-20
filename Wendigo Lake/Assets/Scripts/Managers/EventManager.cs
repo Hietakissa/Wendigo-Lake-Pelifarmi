@@ -26,4 +26,10 @@ public static class EventManager
         public static void RegisterDraggableClue(DraggableClue clue) => OnRegisterDraggableClue?.Invoke(clue);
         public static event Action<DraggableClue> OnRegisterDraggableClue;
     }
+
+    public static class Photography
+    {
+        public static void PhotographDeer(DeerAI deer) => OnPhotographDeer?.Invoke(deer);
+        public static event Action<DeerAI> OnPhotographDeer;
+    }
 }

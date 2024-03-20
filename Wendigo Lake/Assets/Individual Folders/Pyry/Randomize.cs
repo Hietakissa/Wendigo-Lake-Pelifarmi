@@ -35,7 +35,7 @@ public class Randomize : MonoBehaviour
             if (Physics.Raycast(randomPos, Vector3.down, out RaycastHit hit) && hit.point.y < max.y)
             {
                 t.AlignToHit(hit);
-                t.localRotation = Quaternion.Euler(Random.Range(-5f, 5f), Random.Range(0f, 360f), Random.Range(-5f, 5f));
+                t.localRotation = Quaternion.Euler(Random.Range(-3f, 3f), Random.Range(0f, 360f), Random.Range(-3f, 3f));
                 t.localScale = t.localScale * Random.Range(0.8f, 1.2f);
             }
             else Setup(t);

@@ -11,6 +11,8 @@ public class DeerAI : MonoBehaviour
     {
         Vector3 point = GetRandomPos();
         agent.SetDestination(point);
+
+        EventManager.Photography.PhotographDeer(this);
     }
 
     Vector3 GetRandomPos()

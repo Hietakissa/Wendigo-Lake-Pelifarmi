@@ -10,6 +10,7 @@ namespace HietakissaUtils
     using UnityEngine;
     using System.IO;
     using System;
+    using UnityEditor;
 
     public static class Extensions
     {
@@ -330,7 +331,8 @@ namespace HietakissaUtils
         public static bool RandomBool(int percentage) => Random.Range(1, 101) <= percentage;
         public static bool RandomBool(float percentage) => Random.Range(0f, 1f) <= percentage * 0.01f;
 
-        public static Quaternion RandomDirection => Quaternion.LookRotation(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)), Vector3.up);
+        public static Quaternion GetRandomRotation() => Quaternion.LookRotation(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)), Vector3.up);
+        public static Vector3 GetRandomDirection() => Random.insideUnitSphere.normalized;
 
         public static Vector3 RandomPointInBounds(Bounds bounds) => bounds.center + new Vector3(Random.Range(-bounds.size.x * 0.5f, bounds.size.x * 0.5f), Random.Range(-bounds.size.y * 0.5f, bounds.size.y * 0.5f), Random.Range(-bounds.size.z * 0.5f, bounds.size.z * 0.5f));
 
@@ -1292,6 +1294,15 @@ namespace HietakissaUtils
             {
                 if (unscaledWaitDictionary.TryGetValue(time, out waitUnscaledCache)) return waitUnscaledCache;
                 return unscaledWaitDictionary[time] = new WaitForSecondsRealtime(time);
+            }
+
+            public static void Quit()
+            {
+                #if UNITY_EDITOR
+                EditorApplication.ExitPlaymode();
+                #else
+                Application.Quit();
+                #endif
             }
         }
 
