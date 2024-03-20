@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
 
     void SetSensitivity()
     {
-        sensitivity(mainSlider.value);
+        // sensitivity(mainSlider.value);
     }
 
     [SerializeField] bool invertVertical;
