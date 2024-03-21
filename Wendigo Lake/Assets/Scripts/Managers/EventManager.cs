@@ -25,6 +25,9 @@ public static class EventManager
 
         public static void RegisterDraggableClue(DraggableClue clue) => OnRegisterDraggableClue?.Invoke(clue);
         public static event Action<DraggableClue> OnRegisterDraggableClue;
+
+        public static void UnlockClue(ClueSO clue) => OnUnlockClue?.Invoke(clue);
+        public static event Action<ClueSO> OnUnlockClue;
     }
 
     public static class Photography
