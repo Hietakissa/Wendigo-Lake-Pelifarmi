@@ -8,9 +8,9 @@ namespace HietakissaUtils
     using System.Linq;
     using System.Text;
     using UnityEngine;
+    using UnityEditor;
     using System.IO;
     using System;
-    using UnityEditor;
 
     public static class Extensions
     {
@@ -181,6 +181,15 @@ namespace HietakissaUtils
             for (int i = childCount - 1; i >= 0; i--)
             {
                 GameObject.DestroyImmediate(transform.GetChild(i).gameObject);
+            }
+        }
+        public static void DestroyChildrenAuto(this Transform transform)
+        {
+            int childCount = transform.childCount;
+
+            for (int i = childCount - 1; i >= 0; i--)
+            {
+                QOL.QOL.Destroy(transform.GetChild(i).gameObject);
             }
         }
 
@@ -1296,13 +1305,22 @@ namespace HietakissaUtils
                 return unscaledWaitDictionary[time] = new WaitForSecondsRealtime(time);
             }
 
+            public static void Destroy(GameObject go)
+            {
+#if UNITY_EDITOR
+                if (Application.isPlaying) GameObject.Destroy(go);
+                else GameObject.DestroyImmediate(go);
+#else
+                GameObject.Destroy(go);
+#endif
+            }
             public static void Quit()
             {
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 EditorApplication.ExitPlaymode();
-                #else
+#else
                 Application.Quit();
-                #endif
+#endif
             }
         }
 
