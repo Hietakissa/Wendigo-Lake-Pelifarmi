@@ -709,7 +709,7 @@ MonoBehaviour:
   crouchHeight: 0.6
   crouchMultiplier: 0.6
   airMultiplier: 0.5
-  stepHeight: 0.3
+  stepHeight: 0.1
   coyoteTime: 0.1
   jumpBufferTime: 0.2
   allowHoldingJump: 0
@@ -723,6 +723,6 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 51
-  sphereCastRadius: 0.35
+  sphereCastRadius: 0.34
   sphereCastOffset: 0.03
   rayCastOffset: 0.03

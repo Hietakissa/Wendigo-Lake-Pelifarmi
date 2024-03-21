@@ -16,6 +16,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject puzzleUI;
     [SerializeField] TextCollectionSO[] clueCompletionDialogues;
 
+    [SerializeField] DraggableClue[] imageClues;
+    [SerializeField] DraggableClue[] textClues;
+
+
     List<DraggableClue> draggableClues = new List<DraggableClue>();
 
     Queue<TextCollectionSO> dialogueQueue = new Queue<TextCollectionSO>();
@@ -144,6 +148,14 @@ public class UIManager : MonoBehaviour
 
     void EventManager_OnRegisterDraggableClue(DraggableClue clue) => draggableClues.Add(clue);
 
+    void UI_OnUnlockClue(ClueSO clue)
+    {
+        Debug.Log($"unlock clue: {clue.GetClueType}{clue.ID}");
+
+        if (clue.GetClueType == ClueType.Image && imageClues[clue.ID]) imageClues[clue.ID].gameObject.SetActive(true);
+        else if (clue.GetClueType == ClueType.Text && textClues[clue.ID]) textClues[clue.ID].gameObject.SetActive(true);
+    }
+
 
     void EventManager_OnPause()
     {
@@ -163,6 +175,8 @@ public class UIManager : MonoBehaviour
 
         EventManager.UI.OnRegisterDraggableClue += EventManager_OnRegisterDraggableClue;
 
+        EventManager.UI.OnUnlockClue += UI_OnUnlockClue;
+
         EventManager.OnPause += EventManager_OnPause;
         EventManager.OnUnPause += EventManager_OnUnPause;
     }
@@ -173,6 +187,8 @@ public class UIManager : MonoBehaviour
         EventManager.UI.OnEndDrag -= EventManager_OnEndDrag;
 
         EventManager.UI.OnRegisterDraggableClue -= EventManager_OnRegisterDraggableClue;
+
+        EventManager.UI.OnUnlockClue -= UI_OnUnlockClue;
 
         EventManager.OnPause -= EventManager_OnPause;
         EventManager.OnUnPause -= EventManager_OnUnPause;
