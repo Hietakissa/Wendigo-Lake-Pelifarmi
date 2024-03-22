@@ -9,7 +9,10 @@ public class DeerAI : MonoBehaviour
 
     public void Photographed()
     {
-        Vector3 point = GetRandomPos();
+        //Vector3 point = GetRandomPos();
+        Debug.Log($"deer photo");
+
+        Vector3 point = GetRandomPositionAroundPoint(transform.position, 12f, 30f);
         agent.SetDestination(point);
 
         EventManager.Photography.PhotographDeer(this);
@@ -40,6 +43,29 @@ public class DeerAI : MonoBehaviour
         }
 
         return point;
+    }
+
+    Vector3 GetRandomPositionAroundPoint(Vector3 point, float minRadius, float maxRadius)
+    {
+        for (int i = 0; i < 50; i++)
+        {
+            float radius = Random.Range(minRadius, maxRadius);
+            Vector3 randomOffset = Maf.GetRandomDirection().SetY(50f) * radius;
+            Vector3 raycastPos = point + randomOffset;
+
+            if (LOSBetweenPoints(point + Vector3.up * 0.2f, transform.position + Vector3.up)) continue;
+
+            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 2f, NavMesh.AllAreas)) return navHit.position;
+        }
+
+        Debug.Log($"Deer GetRandomPositionAroundPoint exit early!");
+        return point;
+    }
+
+    bool LOSBetweenPoints(Vector3 pointA, Vector3 pointB)
+    {
+        if (Physics.Linecast(pointA, pointB, out RaycastHit hit) && Vector3.Distance(hit.point, pointB) > 1.3f) return false;
+        else return true;
     }
 
 

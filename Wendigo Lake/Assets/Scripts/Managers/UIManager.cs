@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
 
     void EventManager_OnPlayDialogue(TextCollectionSO textCollection)
     {
-        Debug.Log($"Dialogue already playing, queueing dialogue.");
+        Debug.Log($"Queueing dialogue.");
         dialogueQueue.Enqueue(textCollection);
         if (dialogueRoutine == null)
         {
@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
         while (dialogueQueue.Count > 0)
         {
             TextCollectionSO textCollection = dialogueQueue.Dequeue();
+            Debug.Log($"dequeued from dialogue queue, {dialogueQueue.Count} left");
 
             int maxDialogueIndex = textCollection.dialogue.Length;
 
@@ -67,13 +68,13 @@ public class UIManager : MonoBehaviour
                 }
             }
 
+            Debug.Log($"finished playing current dialogue, has more: {dialogueQueue.Count > 0}");
 
-            
             if (dialogueQueue.Count > 0)
             {
                 // only wait if there's more dialogue left
 
-                Debug.Log($"Dialogue ended, playing next one...");
+                
 
                 dialogueUI.SetActive(false);
                 yield return QOL.GetWaitForSeconds(3f);

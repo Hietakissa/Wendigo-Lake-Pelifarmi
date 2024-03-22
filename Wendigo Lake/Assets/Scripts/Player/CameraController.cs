@@ -270,6 +270,8 @@ public class CameraController : MonoBehaviour
             Vector3 point = handheldCam.WorldToViewportPoint(photographableObject.transform.position);
             if (PointInView(point) && DistanceCheck(photographableObject.transform.position) && LOSCheck(photographableObject.transform))
             {
+                Debug.Log($"photographed {photographableObject.gameObject.name}");
+
                 ImageParams imageParams = new ImageParams(usedFlash, false);
                 photographableObject.CapturedInImage(i, imageParams);
             }
@@ -294,7 +296,7 @@ public class CameraController : MonoBehaviour
 
             if (Physics.Linecast(transform.position, t.position, out RaycastHit hit))
             {
-                return hit.transform == t;
+                return hit.transform == t || Vector3.Distance(hit.point, t.position) < 1.2f;
             }
             else return true;
             //return !Physics.Linecast(transform.position, t.position);
