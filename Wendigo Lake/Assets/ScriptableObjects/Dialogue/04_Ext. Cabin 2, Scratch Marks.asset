@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: 04_Ext. Cabin 2, Scratch Marks
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: d3894d6166eb3be438a3b5bcb8913bfd,
+      type: 2}
+    text: Wait, are those scratch marks? They're huge!

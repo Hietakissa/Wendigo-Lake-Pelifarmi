@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: 11_Ext. Forest path. Wrong Path.
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 35857560c7e5ed04db41240f4295b598,
+      type: 2}
+    text: That's the wrong way, love! That road leads to a hike around the mountains,
+      I wouldn't recommend going so late in the day.

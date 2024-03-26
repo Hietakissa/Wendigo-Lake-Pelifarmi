@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: 20_Ext. Forest. Interact with Bushes
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 0
+    <Expression>k__BackingField: {fileID: 0}
+    text: "The bushes here are large and luscious. Some are even large enough to
+      hide behind.\r\r"

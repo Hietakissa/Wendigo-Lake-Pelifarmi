@@ -13,4 +13,14 @@ MonoBehaviour:
   m_Name: 19_Ext. Cabin. Cabin 3, Night. Check your car
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: d3894d6166eb3be438a3b5bcb8913bfd,
+      type: 2}
+    text: Did someone key my car? There are marks all over and all the tires are
+      slashed to fucking bits.
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: d3894d6166eb3be438a3b5bcb8913bfd,
+      type: 2}
+    text: "How am I supposed to explain this to insurance and how the hell am I\r\nsupposed
+      to get out of here?\r"

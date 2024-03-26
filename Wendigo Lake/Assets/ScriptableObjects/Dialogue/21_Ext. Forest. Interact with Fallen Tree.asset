@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: 21_Ext. Forest. Interact with Fallen Tree
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 0
+    <Expression>k__BackingField: {fileID: 0}
+    text: "A dead, long-ago hollowed tree lays on the ground. The trunk is so large
+      you could easily crawl in if you had to.\r"

@@ -13,4 +13,12 @@ MonoBehaviour:
   m_Name: 26_Ext. Forest. Examine shack
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 1f9c8a82fd8d9d548945dd9edf64bc8f,
+      type: 2}
+    text: Locked. Why is everything locked? Fuck, come on. Come on!
+  - <Speaker>k__BackingField: 0
+    <Expression>k__BackingField: {fileID: 0}
+    text: "You keep trying the door handle, desperately trying to open the door to
+      get in before the monster returns. The door doesn't pudge.\r"

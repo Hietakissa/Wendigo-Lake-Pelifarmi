@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: 25_Ext. Forest. Campgrounds.
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 2cd7d637280b890409b046ba2e3e0c2e,
+      type: 2}
+    text: "Someone must have put out the fire recently. Thank god there's still some
+      wood left to burn, I think that thing is afraid of the light.\r"

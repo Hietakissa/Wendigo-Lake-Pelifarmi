@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: 12_Ext. Forest opening. Find a song sparrow
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 0
+    <Expression>k__BackingField: {fileID: 0}
+    text: "It takes a while for you to spot it, but there's a very beautiful song
+      sparrow sitting on a branch in the direction of the lake.\r"

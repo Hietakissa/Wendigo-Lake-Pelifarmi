@@ -14,6 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   dialogue:
-  - <Speaker>k__BackingField: 0
-    <Expression>k__BackingField: {fileID: 0}
-    text: Oh shit!
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 2cd7d637280b890409b046ba2e3e0c2e,
+      type: 2}
+    text: Deliah! Did- did you just come out of the cabin? But the door was locked,
+      how did you-
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 35857560c7e5ed04db41240f4295b598,
+      type: 2}
+    text: Caspian!? That's impossible, you're supposed to be-
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 1f9c8a82fd8d9d548945dd9edf64bc8f,
+      type: 2}
+    text: Be what? Dead!? Did you lock me out on purpose, expecting that thing to
+      eat me!?

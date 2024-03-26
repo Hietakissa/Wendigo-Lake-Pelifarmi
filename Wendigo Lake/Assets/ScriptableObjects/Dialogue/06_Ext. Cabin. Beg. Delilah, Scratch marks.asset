@@ -13,4 +13,33 @@ MonoBehaviour:
   m_Name: 06_Ext. Cabin. Beg. Delilah, Scratch marks
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: d3894d6166eb3be438a3b5bcb8913bfd,
+      type: 2}
+    text: Are there bears around or something?
+  - <Speaker>k__BackingField: 0
+    <Expression>k__BackingField: {fileID: 0}
+    text: The old woman looks confused, tilting her head.
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 35857560c7e5ed04db41240f4295b598,
+      type: 2}
+    text: "Why on earth do you think there'd be bears here love?\r"
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 051681ffd78bf71499d68c238a7c754b,
+      type: 2}
+    text: "There's some really big scratch marks on the wood over there, was just
+      wondering where they'd come from.\r\r"
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 6f6be127fe2aea24a896e6a003539b61,
+      type: 2}
+    text: "Oh those? They're from Rufus, my old hound dog. He'd jump against it to
+      bark and howl. Poor thing had a mean voice but absolutely no bite!\r\r\r"
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 6f6be127fe2aea24a896e6a003539b61,
+      type: 2}
+    text: "I remember once when we went on a walk out in the woods the poor dog got
+      scared by a squirrel that ran past and pulled me right back to the cabin.\r"
+  - <Speaker>k__BackingField: 0
+    <Expression>k__BackingField: {fileID: 0}
+    text: It seems that she will ramble on for quite a bit. I should change the subject.

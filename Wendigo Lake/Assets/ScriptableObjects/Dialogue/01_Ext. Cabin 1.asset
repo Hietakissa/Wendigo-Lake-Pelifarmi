@@ -14,5 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   dialogue:
-  - <speaker>k__BackingField: 0
-    text: 
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 0c236530e85ce404bbe3f4018210e5d9,
+      type: 2}
+    text: Thank God that's over. Now where on earth did I put my notebook?
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 051681ffd78bf71499d68c238a7c754b,
+      type: 2}
+    text: Right. First things first, I need to ask Delilah how on earth will I be
+      able to contact her if something happens.

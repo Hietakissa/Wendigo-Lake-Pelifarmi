@@ -13,4 +13,38 @@ MonoBehaviour:
   m_Name: 07_Ext. Cabin. Beg. Deliah, About cabin
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 051681ffd78bf71499d68c238a7c754b,
+      type: 2}
+    text: This place is surprisingly well maintained despite being so far from, well,
+      everything.
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 6f6be127fe2aea24a896e6a003539b61,
+      type: 2}
+    text: "My husband built it for me oh so long ago! I do adore it, so I try my
+      best to keep the cabin presentable to honour his memory.\r"
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 6f6be127fe2aea24a896e6a003539b61,
+      type: 2}
+    text: We used to come here all the time as a family, me, Dylan and him loved
+      this place.
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: d3894d6166eb3be438a3b5bcb8913bfd,
+      type: 2}
+    text: "Oh... I'm sorry?\r"
+  - <Speaker>k__BackingField: 0
+    <Expression>k__BackingField: {fileID: 0}
+    text: "Delilah looks at you, confused, before laughing lightly and shaking her
+      head.\r"
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 6f6be127fe2aea24a896e6a003539b61,
+      type: 2}
+    text: "Oh love, I think you misunderstood. He's quite well, just too old to come
+      out here to help with maintenance.\r"
+  - <Speaker>k__BackingField: 0
+    <Expression>k__BackingField: {fileID: 0}
+    text: 'You can only sigh in relief as you nod. That was embarrassing, so you''re
+      ready to move on with the conversation.
+
+'

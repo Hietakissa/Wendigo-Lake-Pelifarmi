@@ -13,4 +13,24 @@ MonoBehaviour:
   m_Name: 09_Ext. Cabin. Beg. Deliah, How to contact
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 051681ffd78bf71499d68c238a7c754b,
+      type: 2}
+    text: Hey I noticed there's no bars up here. How do I get in contact if something
+      happens?
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 01f4b54a9faf5b34e940802e60860ae7,
+      type: 2}
+    text: Oh I know, most visitors complain about not being able to watch the flix
+      or something.
+  - <Speaker>k__BackingField: 2
+    <Expression>k__BackingField: {fileID: 11400000, guid: 6f6be127fe2aea24a896e6a003539b61,
+      type: 2}
+    text: There is a satellite phone in the kitchen, hanging right beside the fridge,
+      you can't miss it.
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 051681ffd78bf71499d68c238a7c754b,
+      type: 2}
+    text: "I don't think that's what- never mind, thanks for telling me. I'll keep
+      that in mind.\r"

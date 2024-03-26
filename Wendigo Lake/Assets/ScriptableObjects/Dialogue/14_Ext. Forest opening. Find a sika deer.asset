@@ -13,4 +13,11 @@ MonoBehaviour:
   m_Name: 14_Ext. Forest opening. Find a sika deer
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 051681ffd78bf71499d68c238a7c754b,
+      type: 2}
+    text: 'Deer are known to spook easily. I should move slowly and find a place
+      to hide before I try to take a picture.
+
+'

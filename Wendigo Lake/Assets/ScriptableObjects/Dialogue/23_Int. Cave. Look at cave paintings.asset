@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: 23_Int. Cave. Look at cave paintings
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 1
+    <Expression>k__BackingField: {fileID: 11400000, guid: 051681ffd78bf71499d68c238a7c754b,
+      type: 2}
+    text: These paintings, they look almost familiar. Where have I seen them before?

@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: 15_Ext. Forest opening. Take a picture of the sika deer
   m_EditorClassIdentifier: 
   mode: 0
-  dialogue: []
+  dialogue:
+  - <Speaker>k__BackingField: 0
+    <Expression>k__BackingField: {fileID: 0}
+    text: 'The sika deer lifts its head and looks directly at the camera just as
+      you take a picture. It turns out beautiful.
+
+'
