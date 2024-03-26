@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be52a2911861604c8a068a5cbf57c2b, type: 3}
+  m_Name: 08_Ext. Cabin. Beg. Deliah, Wildlife
+  m_EditorClassIdentifier: 
+  mode: 0
+  dialogue:
+  - <speaker>k__BackingField: 1
+    text: "I'm about to head out to take pictures. I looked online when I came, but
+      have you seen any song sparrows or sika deer around here before?\r"
+  - <speaker>k__BackingField: 0
+    text: "The woman smiles, seeming excited about your enthusiasm to photograph
+      the local wildlife.\r"
+  - <speaker>k__BackingField: 2
+    text: 'Oh heavens yes, there''s all sorts of animals living in these woods! Just
+      the other day I saw some deer southeast from here. There''s a nice little trail
+      that leads to an opening in the woods by the lake.
+
+'
+  - <speaker>k__BackingField: 1
+    text: 'Oh that sounds wonderful! Maybe I''ll head out to take some photos then.
+
+'
+  - <speaker>k__BackingField: 2
+    text: "Just be careful out there love, you wouldn't be the first person to get
+      lost in the woods after sunset. It's very easy to lose one's way out here and
+      all.\r"
+  - <speaker>k__BackingField: 0
+    text: "You want to ask what she means, but it seems that Deliah is ready to move
+      on with the conversation.\r"
