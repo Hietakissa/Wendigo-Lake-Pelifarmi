@@ -191,8 +191,8 @@ public class CameraController : MonoBehaviour
 
     void UpdateCameraStates()
     {
-        cam.gameObject.SetActive(!inCamera);
-        handheldCam.gameObject.SetActive(inCamera);
+        //cam.gameObject.SetActive(!inCamera);
+        //handheldCam.gameObject.SetActive(inCamera);
     }
 
     void SetFlash(bool state)

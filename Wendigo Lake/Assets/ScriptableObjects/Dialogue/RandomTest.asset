@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mode: 0
   dialogue:
-  - <Speaker>k__BackingField: 1
+  - <Speaker>k__BackingField: 2
     <Expression>k__BackingField: {fileID: 11400000, guid: 634ec0ad5ade0214183ffa49bd4e5c0d,
       type: 2}
     text: test <i>testiii</i>
