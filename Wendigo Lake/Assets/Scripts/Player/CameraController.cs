@@ -43,6 +43,7 @@ public class CameraController : MonoBehaviour
     [Header("Flash")]
     [SerializeField] float flashCooldown;
     [SerializeField] Light flashLight;
+    [SerializeField] float flashIntensityMultiplier;
     [SerializeField] Spring intensitySpring;
     [SerializeField] Image[] flashProgressImages;
     [SerializeField] GameObject flashIndicator;
@@ -78,7 +79,7 @@ public class CameraController : MonoBehaviour
 
         HeldCamera();
 
-        flashLight.intensity = intensitySpring.GetValue();
+        flashLight.intensity = intensitySpring.GetValue() * flashIntensityMultiplier;
     }
 
     void HeldCamera()
@@ -267,14 +268,28 @@ public class CameraController : MonoBehaviour
             }
             if (!photographableObject.gameObject.activeSelf) continue;
 
-            Vector3 point = handheldCam.WorldToViewportPoint(photographableObject.transform.position);
-            if (PointInView(point) && DistanceCheck(photographableObject.transform.position) && LOSCheck(photographableObject.transform))
-            {
-                Debug.Log($"photographed {photographableObject.gameObject.name}");
+            //Vector3 point = handheldCam.WorldToViewportPoint(photographableObject.transform.position);
 
-                ImageParams imageParams = new ImageParams(usedFlash, false);
-                photographableObject.CapturedInImage(i, imageParams);
+            foreach (Transform losPoint in photographableObject.LOSChecks)
+            {
+                Vector3 screenPoint = handheldCam.WorldToViewportPoint(losPoint.position);
+                if (PointInView(screenPoint) && DistanceCheck(losPoint.position) && LOSCheck(losPoint.position))
+                {
+                    Debug.Log($"Photographed {photographableObject.gameObject.name}");
+
+                    ImageParams imageParams = new ImageParams(usedFlash, false);
+                    photographableObject.CapturedInImage(in imageParams);
+                    break;
+                }
             }
+
+            //if (PointInView(point) && DistanceCheck(photographableObject.transform.position) && LOSCheck(photographableObject.transform.position))
+            //{
+            //    Debug.Log($"photographed {photographableObject.gameObject.name}");
+            //
+            //    ImageParams imageParams = new ImageParams(usedFlash, false);
+            //    photographableObject.CapturedInImage(i, imageParams);
+            //}
         }
 
 
@@ -290,13 +305,13 @@ public class CameraController : MonoBehaviour
             return Vector3.Distance(transform.position, point) < 20f;
         }
 
-        bool LOSCheck(Transform t)
+        bool LOSCheck(Vector3 point)
         {
             //return Physics.Linecast(transform.position, t.position, out RaycastHit hit) && hit.transform == t;
 
-            if (Physics.Linecast(transform.position, t.position, out RaycastHit hit))
+            if (Physics.Linecast(transform.position, point, out RaycastHit hit))
             {
-                return hit.transform == t || Vector3.Distance(hit.point, t.position) < 1.2f;
+                return Vector3.Distance(hit.point, point) < 1.2f;
             }
             else return true;
             //return !Physics.Linecast(transform.position, t.position);

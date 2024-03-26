@@ -10,7 +10,8 @@ public class TextCollectionSO : ScriptableObject
 [System.Serializable]
 public class DialogueElement
 {
-    [field: SerializeField] public Person speaker { get; private set; }
+    [field: SerializeField] public Person Speaker { get; private set; }
+    [field: SerializeField] public ExpressionSO Expression { get; private set; }
     [field: SerializeField] [TextArea(1, 5)] string text;
     public string Text => text;
 }
