@@ -50,12 +50,17 @@ public class DeerAI : MonoBehaviour
         for (int i = 0; i < 50; i++)
         {
             float radius = Random.Range(minRadius, maxRadius);
-            Vector3 randomOffset = Maf.GetRandomDirection().SetY(50f) * radius;
+            Vector3 randomOffset = (Maf.GetRandomDirection() * radius).SetY(50f);
             Vector3 raycastPos = point + randomOffset;
 
-            if (LOSBetweenPoints(point + Vector3.up * 0.2f, transform.position + Vector3.up)) continue;
+            //if (LOSBetweenPoints(point + Vector3.up * 0.2f, GameManager.Instance.PlayerTransform.position + Vector3.up * 0.2f)) continue;
 
-            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 2f, NavMesh.AllAreas)) return navHit.position;
+            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 2f, NavMesh.AllAreas))
+            {
+                if (LOSBetweenPoints(point + Vector3.up * 0.2f, navHit.position + Vector3.up * 0.2f)) continue;
+                else return navHit.position;
+            }
+            else continue;
         }
 
         Debug.Log($"Deer GetRandomPositionAroundPoint exit early!");
@@ -64,8 +69,8 @@ public class DeerAI : MonoBehaviour
 
     bool LOSBetweenPoints(Vector3 pointA, Vector3 pointB)
     {
-        if (Physics.Linecast(pointA, pointB, out RaycastHit hit) && Vector3.Distance(hit.point, pointB) > 1.3f) return false;
-        else return true;
+        if (!Physics.Linecast(pointA, pointB, out RaycastHit hit) || Vector3.Distance(hit.point, pointB) < 1.3f) return true;
+        else return false;
     }
 
 

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
+using HietakissaUtils.QOL;
 using HietakissaUtils;
 using UnityEngine.AI;
 using UnityEngine;
 using TMPro;
-using HietakissaUtils.QOL;
 
 public class WendigoAI : MonoBehaviour
 {
@@ -212,7 +212,7 @@ public class WendigoAI : MonoBehaviour
 
     void Photography_OnPhotographDeer(DeerAI deer)
     {
-        this.deer.Add(deer);
+        if (!this.deer.Contains(deer)) this.deer.Add(deer);
     }
 
 

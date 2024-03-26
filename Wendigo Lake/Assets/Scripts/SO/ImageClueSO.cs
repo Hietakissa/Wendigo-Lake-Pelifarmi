@@ -4,5 +4,4 @@ using UnityEngine;
 public class ImageClueSO : ClueSO
 {
     public override ClueType GetClueType => ClueType.Image;
-    [SerializeField] float imageTest;
 }

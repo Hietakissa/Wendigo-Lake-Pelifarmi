@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using HietakissaUtils.QOL;
 using System.Collections;
 using HietakissaUtils;
+using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
@@ -9,10 +10,14 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] float typeSpeed;
 
-    [Header("References")]
+    [Header("Dialogue")]
     [SerializeField] GameObject dialogueUI;
     [SerializeField] TextMeshProUGUI dialogueText;
 
+    [SerializeField] Image playerExpressionImage;
+    [SerializeField] Image delilahExpressionImage;
+
+    [Header("Puzzle")]
     [SerializeField] GameObject puzzleUI;
     [SerializeField] TextCollectionSO[] clueCompletionDialogues;
 
@@ -74,8 +79,6 @@ public class UIManager : MonoBehaviour
             {
                 // only wait if there's more dialogue left
 
-                
-
                 dialogueUI.SetActive(false);
                 yield return QOL.GetWaitForSeconds(3f);
                 dialogueUI.SetActive(true);
@@ -90,12 +93,37 @@ public class UIManager : MonoBehaviour
 
         IEnumerator DisplayDialogue(DialogueElement dialogue)
         {
+            Debug.Log($"Starting to display dialogue...");
+
+            switch (dialogue.Speaker)
+            {
+                case Person.None:
+                    playerExpressionImage.gameObject.SetActive(false);
+                    delilahExpressionImage.gameObject.SetActive(false);
+                    break;
+
+                case Person.Me:
+                    playerExpressionImage.gameObject.SetActive(true);
+                    playerExpressionImage.sprite = dialogue.Expression.ExpressionSprite;
+
+                    delilahExpressionImage.gameObject.SetActive(false);
+                    break;
+
+                case Person.Delilah:
+                    playerExpressionImage.gameObject.SetActive(false);
+
+                    delilahExpressionImage.gameObject.SetActive(true);
+                    delilahExpressionImage.sprite = dialogue.Expression.ExpressionSprite;
+                    break;
+            }
+
             int endIndex = 0;
             int maxIndex = dialogue.Text.Length;
             float typeTime = 0f;
             while (true)
             {
-                //typeTime += typeSpeed * Time.deltaTime;
+                Debug.Log($"Writing text: {((float)endIndex / maxIndex * 100f).RoundDown()}%");
+
                 typeTime += typeSpeed * Time.unscaledDeltaTime;
 
                 int newIndices = typeTime.RoundDown();
@@ -103,12 +131,12 @@ public class UIManager : MonoBehaviour
                 endIndex = Mathf.Min(maxIndex, endIndex + newIndices);
 
                 //monologueText.text = $"{(dialogue.speaker == Person.None ? "" : $"{dialogue.speaker}: ")}{dialogue.Text.Substring(0, endIndex)}";
-                dialogueText.text = $"{FormatSpeaker(dialogue.speaker)}{dialogue.Text.Substring(0, endIndex)}";
+                //dialogueText.text = $"{FormatSpeaker(dialogue.speaker)}{dialogue.Text.Substring(0, endIndex)}";
+                dialogueText.text = $"{dialogue.Text.Substring(0, endIndex)}";
                 if (endIndex == maxIndex) break;
                 yield return null;
             }
 
-            //yield return QOL.GetWaitForSeconds(3f);
             yield return QOL.GetUnscaledWaitForSeconds(3f);
         }
     }
@@ -117,7 +145,7 @@ public class UIManager : MonoBehaviour
 
     void EventManager_OnEndDrag(DraggableClue clue)
     {
-        if (clue.clueData.GetClueType != ClueType.Text) return;
+        //if (clue.clueData.GetClueType != ClueType.Text) return;
 
         foreach (DraggableClue currentClue in draggableClues)
         {

@@ -4,5 +4,4 @@ using UnityEngine;
 public class TextClueSO : ClueSO
 {
     public override ClueType GetClueType => ClueType.Text;
-    [SerializeField] float textTest;
 }

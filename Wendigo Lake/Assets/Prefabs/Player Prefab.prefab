@@ -174,9 +174,9 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0
-  m_Range: 25
-  m_SpotAngle: 85
-  m_InnerSpotAngle: 10
+  m_Range: 35
+  m_SpotAngle: 105
+  m_InnerSpotAngle: 65
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -212,10 +212,10 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -345,14 +345,15 @@ MonoBehaviour:
   handheldCam: {fileID: 5267025578232959820}
   imageDelay: 0.1
   format: 74
-  flashCooldown: 5
+  flashCooldown: 1
   flashLight: {fileID: 4768586350849396730}
+  flashIntensityMultiplier: 2
   intensitySpring:
-    frequency: 15
+    frequency: 12
     damping: 0.7
     goal: 0
     <Min>k__BackingField: 0
-    <Max>k__BackingField: 75
+    <Max>k__BackingField: 250
   flashProgressImages:
   - {fileID: 0}
   - {fileID: 0}

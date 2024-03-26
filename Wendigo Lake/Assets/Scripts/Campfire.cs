@@ -33,7 +33,7 @@ public class Campfire : MonoBehaviour
 
         if (Vector3.Distance(fireLight.transform.position, lightTargetPos) < lightPosThreshold) SetRandomLightTarget();
         //fireLight.intensity = baseIntensity + Mathf.Sin(intensityFrequency * Time.time) * intensityMagnitude;
-        float intensity = baseIntensity + (CalculateIntensity(1) + CalculateIntensity(2) + CalculateIntensity(8)) * 0.33f;
+        float intensity = baseIntensity + (CalculateIntensity(1) + CalculateIntensity(2) + CalculateIntensity(8));
         fireLight.intensity = intensity;
         fireLight.range = intensity * 0.5f;
     }
@@ -49,6 +49,6 @@ public class Campfire : MonoBehaviour
     {
         float cascadeMult = (1f / cascade);
         //return Mathf.Sin(intensityFrequency * cascadeMult * Time.time) * intensityMagnitude * cascade;
-        return Mathf.PingPong(intensityFrequency * cascadeMult * Time.time, 1f) * intensityMagnitude * cascade;
+        return Mathf.PingPong(intensityFrequency * cascadeMult * Time.time, 1f) * intensityMagnitude / cascade;
     }
 }
