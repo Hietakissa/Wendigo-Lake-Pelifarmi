@@ -1,3 +1,4 @@
+using UnityEngine;
 using System;
 
 public static class EventManager
@@ -13,6 +14,10 @@ public static class EventManager
     public static event Action OnPause;
     public static void UnPause() => OnUnPause?.Invoke();
     public static event Action OnUnPause;
+
+
+    public static void PlaySoundAtPosition(SoundCollectionSO soundCollection, Vector3 position, bool positional = true) => OnPlaySoundAtPosition?.Invoke(soundCollection, position, positional);
+    public static event Action<SoundCollectionSO,Vector3,bool> OnPlaySoundAtPosition;
 
 
     public static class UI

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Manager
 {
     [SerializeField] float typeSpeed;
 

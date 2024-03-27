@@ -19,6 +19,12 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         photographableObjects = new List<PhotographableObject>();
+
+        Manager[] managers = GetComponents<Manager>();
+        foreach (Manager manager in managers)
+        {
+            manager.Initialize();
+        }
     }
 
     void Update()

@@ -9,14 +9,22 @@ public class Campfire : MonoBehaviour
     [SerializeField] float intensityFrequency;
     [SerializeField] float intensityMagnitude;
 
+    [Header("Other")]
+    [SerializeField] Collider[] colliders;
+
     Vector3 lightVelocity;
     Vector3 lightTargetPos;
     Vector3 lightOrigin;
     float lightPosThreshold = 0.05f;
 
 
-    void Start()
+    void Awake()
     {
+        foreach (Collider collider in colliders)
+        {
+            collider.isTrigger = true;
+        }
+
         lightOrigin = fireLight.transform.position;
         SetRandomLightTarget();
     }
