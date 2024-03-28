@@ -49,6 +49,8 @@ public class FootstepPlayer : MonoBehaviour
 
 
                 EventManager.PlaySoundAtPosition(sound, transform.position);
+
+                Debug.Log($"step; hit: {hit.collider.name}, material: {material}");
             }
         }
 

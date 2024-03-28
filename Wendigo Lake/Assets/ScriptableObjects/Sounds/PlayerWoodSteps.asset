@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundCollectionType: 1
   sounds:
-  - Type: 1
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: 5c3e06615119019489f95ac426194cd9,
+      type: 3}
     Volume: 1
     MinPitchDeviation: 0
     MaxPitchDeviation: 0
-    Clip: {fileID: 8300000, guid: 5c3e06615119019489f95ac426194cd9, type: 3}
-  - Type: 1
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: 36f2dac740979314da4c9d5c56eb5ef0,
+      type: 3}
     Volume: 1
     MinPitchDeviation: 0
     MaxPitchDeviation: 0
-    Clip: {fileID: 8300000, guid: 36f2dac740979314da4c9d5c56eb5ef0, type: 3}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00206419, g: 0.031486683, b: 0.11401047, a: 1}
+  m_IndirectSpecularColor: {r: 0.002848895, g: 0.045800526, b: 0.1692363, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77aee84a3b2af2345a46bd2f91c75a94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Material>k__BackingField: 0
+  <Material>k__BackingField: 2
 --- !u!1 &295662155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2311,9 +2311,9 @@ MonoBehaviour:
   <PlayerTransform>k__BackingField: {fileID: 426672232}
   terrainMaterials:
   - <Material>k__BackingField: 0
-    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
-  - <Material>k__BackingField: 0
-    <Color>k__BackingField: {r: 0, g: 0, b: 0, a: 0}
+    <Color>k__BackingField: {r: 0, g: 1, b: 0, a: 1}
+  - <Material>k__BackingField: 1
+    <Color>k__BackingField: {r: 1, g: 0, b: 0, a: 1}
   splatMap: {fileID: -2591797752787736096, guid: 993cf8c86575ad1459497db79bd3f602,
     type: 2}
 --- !u!4 &1744417996
@@ -2984,8 +2984,11 @@ MonoBehaviour:
   - <Material>k__BackingField: 0
     <Sounds>k__BackingField: {fileID: 11400000, guid: 649173f12b1c0df4facca3d4e4d06671,
       type: 2}
-  - <Material>k__BackingField: 0
+  - <Material>k__BackingField: 1
     <Sounds>k__BackingField: {fileID: 11400000, guid: 74035b680aa6f3a4ba1591a4062e92d1,
+      type: 2}
+  - <Material>k__BackingField: 2
+    <Sounds>k__BackingField: {fileID: 11400000, guid: ca37ab2747161804f95e3e400ed72b41,
       type: 2}
   defaultFootSteps: {fileID: 11400000, guid: 74035b680aa6f3a4ba1591a4062e92d1, type: 2}
   stepThreshold: 1.9

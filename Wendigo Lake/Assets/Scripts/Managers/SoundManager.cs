@@ -79,9 +79,8 @@ public class SoundManager : Manager
 
             source.Play();
 
-            Debug.Log($"before accessing clip {sound}");
+
             int normalizedClipTime = sound.Clip.length.RoundUp();
-            Debug.Log($"after accessing clip");
             StartCoroutine(ReturnToQueueCor(source, normalizedClipTime));
         }
     }
