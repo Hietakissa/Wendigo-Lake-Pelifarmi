@@ -6,7 +6,6 @@ using System.IO;
 
 public class CameraController : MonoBehaviour
 {
-
     [SerializeField] float sensitivity = 1f;
     [SerializeField] bool invertVertical;
     [SerializeField] bool invertHorizontal;

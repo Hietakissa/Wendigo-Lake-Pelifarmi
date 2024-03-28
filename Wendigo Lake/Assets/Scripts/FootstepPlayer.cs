@@ -59,6 +59,6 @@ public class FootstepPlayer : MonoBehaviour
 [System.Serializable]
 class TerrainMaterialSoundCollectionPair
 {
-    [field: SerializeField] public TerrainMaterial Material;
-    [field: SerializeField] public SoundCollectionSO Sounds;
+    [field: SerializeField] public TerrainMaterial Material { get; private set; }
+    [field: SerializeField] public SoundCollectionSO Sounds { get; private set; }
 }

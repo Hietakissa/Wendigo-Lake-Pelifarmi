@@ -19,10 +19,12 @@ public class UIManager : Manager
 
     [Header("Puzzle")]
     [SerializeField] GameObject puzzleUI;
-    [SerializeField] TextCollectionSO[] clueCompletionDialogues;
+    //[SerializeField] TextCollectionSO[] clueCompletionDialogues;
 
-    [SerializeField] DraggableClue[] imageClues;
-    [SerializeField] DraggableClue[] textClues;
+    //[SerializeField] DraggableClue[] imageClues;
+    //[SerializeField] DraggableClue[] textClues;
+    //List<DraggableClue> imageClues = new List<DraggableClue>();
+    //List<DraggableClue> textClues = new List<DraggableClue>();
 
 
     List<DraggableClue> draggableClues = new List<DraggableClue>();
@@ -31,6 +33,9 @@ public class UIManager : Manager
     Coroutine dialogueRoutine;
 
     Canvas canvas;
+
+    [SerializeField] DraggableClue imageCluePrefab;
+    [SerializeField] DraggableClue textCluePrefab;
 
 
     void Awake()
@@ -141,7 +146,7 @@ public class UIManager : Manager
         }
     }
 
-    string FormatSpeaker(Person person) => $"{(person == Person.None ? "" : $"{person}: ")}";
+    //string FormatSpeaker(Person person) => $"{(person == Person.None ? "" : $"{person}: ")}";
 
     void EventManager_OnEndDrag(DraggableClue clue)
     {
@@ -153,7 +158,8 @@ public class UIManager : Manager
             if (!IDMatch(clue, currentClue)) continue;
             if (CheckForOverlap((RectTransform)currentClue.transform, (RectTransform)clue.transform))
             {
-                TextCollectionSO clueCompletion = clueCompletionDialogues[clue.clueData.ID];
+                //TextCollectionSO clueCompletion = clueCompletionDialogues[clue.clueData.ID];
+                TextCollectionSO clueCompletion = clue.clueData.CompletionDialogue;
                 if (clueCompletion) EventManager.UI.PlayDialogue(clueCompletion);
 
                 Destroy(clue.gameObject);
@@ -181,8 +187,28 @@ public class UIManager : Manager
     {
         Debug.Log($"unlock clue: {clue.GetClueType}{clue.ID}");
 
-        if (clue.GetClueType == ClueType.Image && imageClues[clue.ID]) imageClues[clue.ID].gameObject.SetActive(true);
-        else if (clue.GetClueType == ClueType.Text && textClues[clue.ID]) textClues[clue.ID].gameObject.SetActive(true);
+        DraggableClue draggableClue = null;
+        switch (clue.GetClueType)
+        {
+            case ClueType.Image:
+                draggableClue = Instantiate(imageCluePrefab, puzzleUI.transform);
+                draggableClue.SetClueData(clue);
+                draggableClue.Image.sprite = (clue as ImageClueSO).Image;
+                break;
+
+            case ClueType.Text:
+                draggableClue = Instantiate(textCluePrefab, puzzleUI.transform);
+                draggableClue.SetClueData(clue);
+                draggableClue.Text.text = (clue as TextClueSO).Text;
+                break;
+        }
+
+        if (draggableClue != null) draggableClues.Add(draggableClue);
+        else Debug.Log("COULD NOT CREATE UI CLUE ELEMENT FOR SOME REASON.");
+        
+
+        //if (clue.GetClueType == ClueType.Image && imageClues[clue.ID]) imageClues[clue.ID].gameObject.SetActive(true);
+        //else if (clue.GetClueType == ClueType.Text && textClues[clue.ID]) textClues[clue.ID].gameObject.SetActive(true);
     }
 
 
