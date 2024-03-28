@@ -16,8 +16,8 @@ public static class EventManager
     public static event Action OnUnPause;
 
 
-    public static void PlaySoundAtPosition(SoundCollectionSO soundCollection, Vector3 position, bool positional = true) => OnPlaySoundAtPosition?.Invoke(soundCollection, position, positional);
-    public static event Action<SoundCollectionSO,Vector3,bool> OnPlaySoundAtPosition;
+    public static void PlaySoundAtPosition(SoundCollectionSO soundCollection, Vector3 position) => OnPlaySoundAtPosition?.Invoke(soundCollection, position);
+    public static event Action<SoundCollectionSO,Vector3> OnPlaySoundAtPosition;
 
 
     public static class UI
