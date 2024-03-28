@@ -48,6 +48,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] Image[] flashProgressImages;
     [SerializeField] GameObject flashIndicator;
     [SerializeField] bool outputImageToDisk;
+
+    [Header("Sounds")]
+    [SerializeField] SoundCollectionSO captureImageSound;
+
+
     float flashProgress;
     bool flash = true;
     bool photoDelay;
@@ -89,7 +94,7 @@ public class CameraController : MonoBehaviour
 
         if (inCamera)
         {
-            if (Input.GetMouseButtonDown(0) && !photoDelay) CaptureImage();
+            if (Input.GetMouseButtonDown(0) && !photoDelay && flashReady) CaptureImage();
             //else if (Input.GetKeyDown(KeyCode.F) && flashProgress >= flashCooldown) SetFlash(!flash);
             flashIndicator.SetActive(flashReady);
         }
@@ -206,6 +211,7 @@ public class CameraController : MonoBehaviour
 
     void CaptureImage()
     {
+        EventManager.PlaySoundAtPosition(captureImageSound, transform.position);
         StartCoroutine(CaptureImageCor());
 
 
