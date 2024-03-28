@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     public TerrainMaterial GetTerrainMaterialForPosition(Vector3 position)
     {
-        Vector2Int texCoords = PositionToSplatMapCoords(PlayerTransform.position);
+        Vector2Int texCoords = PositionToSplatMapCoords(position);
         Color pixelColor = splatMap.GetPixel(texCoords.x, texCoords.y);
 
         int closestIndex = 0;
