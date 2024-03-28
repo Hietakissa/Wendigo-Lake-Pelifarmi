@@ -89,6 +89,13 @@ public class WendigoAI : MonoBehaviour
 
             case State.Chasing:
 
+                //if (target == null)
+                //{
+                //    // workaround because after eating a deer the wendigo stays chasing for some reason
+                //    state = State.Roaming;
+                //    return;
+                //}
+
                 if (target == playerTransform && Vector3.Distance(transform.position, playerTransform.position) < attackDistance)
                 {
                     Debug.Log($"reached player?");
@@ -102,9 +109,10 @@ public class WendigoAI : MonoBehaviour
 
                         if (seeDeer)
                         {
+                            deer.Remove(seeDeer);
                             Destroy(seeDeer.gameObject);
-                            state = State.Roaming;
                         }
+                        state = State.Roaming;
                     }
                 }
                 else
@@ -157,6 +165,7 @@ public class WendigoAI : MonoBehaviour
     {
         Vector3 posWithOffset = transform.position + Vector3.up;
         if (Vector3.Distance(posWithOffset, point) > sightRange) return false;
+        if (Vector3.Dot(transform.forward, Maf.Direction(transform.position, point)) < 0.5f && Vector3.Distance(transform.position, point) > 3f) return false;
 
         // linecast to target point doesn't hit anything, or the hit point is within 1 unit of the target point
         if (Physics.Linecast(posWithOffset, point + Vector3.up, out RaycastHit hit))

@@ -4,14 +4,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/Sound Collection", fileName = "New Sound Collection")]
 public class SoundCollectionSO : ScriptableObject
 {
-    [field: SerializeField] public int LongestClipLength;
-    [SerializeField] AudioClip[] Sounds;
+    [SerializeField] Sound[] sounds;
 
-    public bool TryGetAudioClip(out AudioClip audioClip)
+    public bool TryGetSound(out Sound sound)
     {
-        audioClip = Sounds.RandomElement();
+        sound = sounds.RandomElement();
 
-        if (audioClip != null) return true;
+        if (sound != null) return true;
         else return false;
     }
 }
