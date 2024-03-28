@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using HietakissaUtils;
 using UnityEngine;
 
 public class FootstepPlayer : MonoBehaviour
@@ -8,10 +7,15 @@ public class FootstepPlayer : MonoBehaviour
     [SerializeField] SoundCollectionSO defaultFootSteps;
     [SerializeField] float stepThreshold = 0.2f;
 
+    [SerializeField] Transform groundCheckPos;
+    [SerializeField] float groundCheckDistance;
+
     Dictionary<TerrainMaterial, SoundCollectionSO> materialSounds = new Dictionary<TerrainMaterial, SoundCollectionSO>();
 
     Vector3 lastPos;
     float distanceMoved;
+
+    const float CONST_GROUNDCHECKOFFSET = 0.1f;
 
     void Awake()
     {
@@ -27,19 +31,25 @@ public class FootstepPlayer : MonoBehaviour
     void Update()
     {
         //Debug.Log($"lastpos: {lastPos}, currentpos: {transform.position}, moved: {Vector3.Distance(transform.position, lastPos)}, estimated speed: {1f / Time.deltaTime * Vector3.Distance(transform.position, lastPos)}");
-        distanceMoved += Vector3.Distance(transform.position, lastPos);
-        if (distanceMoved >= stepThreshold)
+        
+        if (Physics.Raycast(groundCheckPos.position + Vector3.up * CONST_GROUNDCHECKOFFSET, Vector3.down, out RaycastHit hit, groundCheckDistance + CONST_GROUNDCHECKOFFSET))
         {
-            distanceMoved -= stepThreshold;
-            //EventManager.PlaySoundAtPosition(footstepSounds, transform.position);
-            TerrainMaterial material = GameManager.Instance.GetTerrainMaterialForPosition(transform.position);
-            SoundCollectionSO sound;
-            if (materialSounds.TryGetValue(material, out sound)) ;
-            else sound = defaultFootSteps;
+            distanceMoved += Vector3.Distance(transform.position, lastPos);
+            if (distanceMoved >= stepThreshold)
+            {
+                distanceMoved -= stepThreshold;
 
-            Debug.Log($"material: {material}");
+                TerrainMaterial material;
+                if (hit.collider.TryGetComponent(out SurfaceType surfaceType)) material = surfaceType.Material;
+                else material = GameManager.Instance.GetTerrainMaterialForPosition(transform.position);
 
-            EventManager.PlaySoundAtPosition(sound, transform.position);
+                SoundCollectionSO sound;
+                if (materialSounds.TryGetValue(material, out sound)) ;
+                else sound = defaultFootSteps;
+
+
+                EventManager.PlaySoundAtPosition(sound, transform.position);
+            }
         }
 
         lastPos = transform.position;

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using HietakissaUtils;
-using UnityEngine.UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -19,7 +18,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] MaterialColor[] terrainMaterials;
     [SerializeField] Texture2D splatMap;
-    [SerializeField] Image image;
 
     void Awake()
     {
@@ -36,13 +34,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        Vector2Int texCoords = PositionToSplatMapCoords(PlayerTransform.position);
-        Color color = splatMap.GetPixel(texCoords.x, texCoords.y);
-        color.a = 1f;
-        Debug.Log($"{color}");
-        image.color = color;
-
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Paused) EventManager.UnPause();
@@ -130,5 +121,6 @@ class MaterialColor
 public enum TerrainMaterial
 {
     Grass,
-    Dirt
+    Dirt,
+    Wood
 }

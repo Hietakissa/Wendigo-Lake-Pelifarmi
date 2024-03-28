@@ -50,7 +50,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] bool outputImageToDisk;
 
     [Header("Sounds")]
-    [SerializeField] SoundCollectionSO captureImageSound;
+    [SerializeField] SoundCollectionSO captureImageSounds;
 
 
     float flashProgress;
@@ -211,7 +211,7 @@ public class CameraController : MonoBehaviour
 
     void CaptureImage()
     {
-        EventManager.PlaySoundAtPosition(captureImageSound, transform.position);
+        EventManager.PlaySoundAtPosition(captureImageSounds, transform.position);
         StartCoroutine(CaptureImageCor());
 
 

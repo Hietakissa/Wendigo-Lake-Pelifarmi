@@ -1,14 +1,21 @@
 using System.Collections.Generic;
 using HietakissaUtils.QOL;
 using System.Collections;
-using UnityEngine;
 using HietakissaUtils;
+using UnityEngine;
 
 public class SoundManager : Manager
 {
     Queue<AudioSource> audioSourceQueue = new Queue<AudioSource>();
 
+    Transform sourceParent;
     int highestID;
+
+    public override void Initialize()
+    {
+        sourceParent = new GameObject("Audio").transform;
+        sourceParent.parent = transform;
+    }
 
 
     AudioSource GetAudioSource()
@@ -20,15 +27,17 @@ public class SoundManager : Manager
 
         return audioSourceQueue.Dequeue();
     }
+
     IEnumerator ReturnToQueueCor(AudioSource source, int time)
     {
         yield return QOL.GetWaitForSeconds(time);
         audioSourceQueue.Enqueue(source);
     }
+
     void CreateAudioSource()
     {
         GameObject go = new GameObject($"Pooled Audio ({highestID++})");
-        go.transform.parent = transform;
+        go.transform.parent = sourceParent;
         audioSourceQueue.Enqueue(go.AddComponent<AudioSource>());
     }
 
@@ -42,7 +51,23 @@ public class SoundManager : Manager
 
     void EventManager_OnPlaySoundAtPosition(SoundCollectionSO soundCollection, Vector3 position)
     {
-        if (soundCollection.TryGetSound(out Sound sound))
+        switch (soundCollection.SoundCollectionType)
+        {
+            case SoundCollectionType.Random:
+                if (soundCollection.TryGetSound(out Sound sound)) PlaySound(sound);
+            break;
+
+            case SoundCollectionType.All:
+                if (soundCollection.TryGetSounds(out Sound[] sounds))
+                {
+                    foreach (Sound foundSound in sounds) PlaySound(foundSound);
+                }
+            break;
+        }
+
+        
+
+        void PlaySound(Sound sound)
         {
             AudioSource source = GetAudioSource();
             source.transform.position = position;
@@ -51,7 +76,7 @@ public class SoundManager : Manager
             source.pitch = GetPitch(sound.MinPitchDeviation, sound.MaxPitchDeviation);
             source.volume = sound.Volume * Random.Range(0.95f, 1.05f);
             source.clip = sound.Clip;
-            
+
             source.Play();
 
             int normalizedClipTime = sound.Clip.length.RoundUp();
