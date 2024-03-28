@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Text 0
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 0
-  textTest: 0
+  <CompletionDialogue>k__BackingField: {fileID: 0}
+  text: testi text 0

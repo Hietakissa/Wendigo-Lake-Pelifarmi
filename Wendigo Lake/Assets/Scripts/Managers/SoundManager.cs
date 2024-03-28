@@ -79,7 +79,9 @@ public class SoundManager : Manager
 
             source.Play();
 
+            Debug.Log($"before accessing clip {sound}");
             int normalizedClipTime = sound.Clip.length.RoundUp();
+            Debug.Log($"after accessing clip");
             StartCoroutine(ReturnToQueueCor(source, normalizedClipTime));
         }
     }
@@ -101,11 +103,11 @@ public class SoundManager : Manager
 [System.Serializable]
 public class Sound
 {
-    [field: SerializeField] public AudioType Type = AudioType.Positional;
+    [field: SerializeField] public AudioType Type { get; private set; } = AudioType.Positional;
+    [field: SerializeField] public AudioClip Clip { get; private set; }
     [field: SerializeField][Range(0f, 1f)] public float Volume = 1f;
     [field: SerializeField][Range(-1f, 0f)] public float MinPitchDeviation = -0.1f;
     [field: SerializeField][Range(0f, 1f)] public float MaxPitchDeviation = 0.1f;
-    [field: SerializeField] public AudioClip Clip;
 
     Sound() { } // Unity can't properly serialize the class with the correct default values without the empty constructor
 }

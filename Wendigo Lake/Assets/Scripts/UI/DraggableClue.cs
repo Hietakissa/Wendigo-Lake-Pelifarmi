@@ -1,10 +1,15 @@
 using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class DraggableClue : MonoBehaviour, IDragHandler, IBeginDragHandler,  IEndDragHandler
 {
     [field: SerializeField] public ClueSO clueData { get; private set; }
     Vector2 dragOffset;
+
+    [field: SerializeField] public Image Image { get; private set; }
+    [field: SerializeField] public TextMeshProUGUI Text { get; private set; }
 
 
     void Start()
@@ -12,6 +17,11 @@ public class DraggableClue : MonoBehaviour, IDragHandler, IBeginDragHandler,  IE
         EventManager.UI.RegisterDraggableClue(this);
     }
 
+
+    public void SetClueData(ClueSO clueData)
+    {
+        this.clueData = clueData;
+    }
 
     void SetPosition(Vector2 mousePos)
     {

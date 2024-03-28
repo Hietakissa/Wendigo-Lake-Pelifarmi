@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PhotographableObject : MonoBehaviour, IPhotographable
 {
-    [field:SerializeField] public Transform[] LOSChecks { get; private set; }
+    [field: SerializeField] public Transform[] LOSChecks { get; private set; }
     [SerializeField] UnityEvent<ImageParams> onPhotographed;
     //public int ID { get; private set; }
 

@@ -7,7 +7,6 @@ public class SoundCollectionSO : ScriptableObject
 {
     [field: SerializeField] public SoundCollectionType SoundCollectionType = SoundCollectionType.Random;
     [SerializeField] Sound[] sounds;
-    Sound[] soundList;
 
     public bool TryGetSound(out Sound sound)
     {
@@ -19,14 +18,17 @@ public class SoundCollectionSO : ScriptableObject
 
     public bool TryGetSounds(out Sound[] sounds)
     {
-        if (soundList == null)
-        {
-            List<Sound> tempSoundList = new List<Sound>();
-            foreach (Sound sound in this.sounds) if (sound != null) tempSoundList.Add(sound);
-            soundList = tempSoundList.ToArray();
-        }
+        Debug.Log($"Get sounds");
+        //if (soundList == null)
+        //{
+        //    List<Sound> tempSoundList = new List<Sound>();
+        //    foreach (Sound sound in this.sounds) if (sound != null) tempSoundList.Add(sound);
+        //    soundList = tempSoundList.ToArray();
+        //
+        //    Debug.Log($"first time, created array with length of {soundList.Length}");
+        //}
 
-        sounds = soundList;
+        sounds = this.sounds;
         if (sounds.Length == 0) return false;
         else return true;
     }

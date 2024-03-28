@@ -4,4 +4,5 @@ using UnityEngine;
 public class ImageClueSO : ClueSO
 {
     public override ClueType GetClueType => ClueType.Image;
+    [field: SerializeField] public Sprite Image { get; private set; }
 }

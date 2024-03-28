@@ -114,8 +114,8 @@ public class GameManager : MonoBehaviour
 [System.Serializable]
 class MaterialColor
 {
-    [field: SerializeField] public TerrainMaterial Material;
-    [field: SerializeField] public Color Color;
+    [field: SerializeField] public TerrainMaterial Material { get; private set; }
+    [field: SerializeField] public Color Color { get; private set; }
 }
 
 public enum TerrainMaterial
