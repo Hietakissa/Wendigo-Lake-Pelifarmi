@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Image 1
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 1
-  imageTest: 0
+  <CompletionDialogue>k__BackingField: {fileID: 0}
+  <Image>k__BackingField: {fileID: 21300000, guid: 752e3172ae7871943befa6b9b1a7466f,
+    type: 3}

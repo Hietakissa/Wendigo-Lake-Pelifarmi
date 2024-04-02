@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Text 2
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 2
-  textTest: 0
+  <CompletionDialogue>k__BackingField: {fileID: 0}
+  text: The strange creature from the trail seemed familiar.

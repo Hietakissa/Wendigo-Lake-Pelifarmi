@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Text 1
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 1
-  textTest: 0
+  <CompletionDialogue>k__BackingField: {fileID: 0}
+  text: The cabin door was locked tight.
