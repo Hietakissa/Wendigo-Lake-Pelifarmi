@@ -36,7 +36,7 @@ public class BirdAI : MonoBehaviour
 
     public void Photographed(ImageParams imageParams)
     {
-        if (moving || !imageParams.usedFlash) return;
+        if (moving || !imageParams.UsedFlash) return;
 
         moving = true;
         target = transform.position + new Vector3(Random.Range(-dist, dist), Random.Range(dist * 0.5f, dist), Random.Range(-dist, dist));

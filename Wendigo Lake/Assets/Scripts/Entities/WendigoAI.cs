@@ -32,6 +32,8 @@ public class WendigoAI : MonoBehaviour
     float roamingWait;
 
     State state;
+    float flashed;
+
 
     List<DeerAI> deer = new List<DeerAI>();
     DeerAI seeDeer;
@@ -55,7 +57,12 @@ public class WendigoAI : MonoBehaviour
 
     void Update()
     {
-        if (target) state = State.Chasing;
+        if (flashed > 0f)
+        {
+            state = State.Roaming;
+            flashed -= Time.deltaTime;
+        }
+        else if (target) state = State.Chasing;
 
         // bad enum state machine, but not much time
         switch (state)
@@ -63,6 +70,12 @@ public class WendigoAI : MonoBehaviour
             case State.Roaming:
                 Debug.DrawLine(transform.position, roamTarget);
                 Debug.DrawRay(roamTarget, Vector3.up * 10f, Color.red);
+
+                if (Vector3.Distance(transform.position, GameManager.Instance.PlayerTransform.position) < 12f)
+                {
+                    state = State.Chasing;
+                    target = GameManager.Instance.PlayerTransform;
+                }
 
                 if (MoveToPos(roamTarget))
                 {
@@ -96,7 +109,7 @@ public class WendigoAI : MonoBehaviour
                 //    return;
                 //}
 
-                if (target == playerTransform && Vector3.Distance(transform.position, playerTransform.position) < attackDistance)
+                if (target == playerTransform && flashed <= 0f && Vector3.Distance(transform.position, playerTransform.position) < attackDistance)
                 {
                     Debug.Log($"reached player?");
                     QOL.Quit();
@@ -155,7 +168,7 @@ public class WendigoAI : MonoBehaviour
 
         if (!target && CanSeePoint(playerTransform.position)) target = playerTransform;
 
-        string debugString = $"state: {state}\ntarget: {(target ? target.name : "null")}\nsees player: {CanSeePoint(playerTransform.position)}";
+        string debugString = $"state: {state}\ntarget: {(target ? target.name : "null")}\nsees player: {CanSeePoint(playerTransform.position)}\nDistance:{Vector3.Distance(transform.position, GameManager.Instance.PlayerTransform.position).RoundToDecimalPlaces(1)}";
         //Debug.Log(debugString);
         text.text = debugString;
     }
@@ -165,7 +178,7 @@ public class WendigoAI : MonoBehaviour
     {
         Vector3 posWithOffset = transform.position + Vector3.up;
         if (Vector3.Distance(posWithOffset, point) > sightRange) return false;
-        if (Vector3.Dot(transform.forward, Maf.Direction(transform.position, point)) < 0.5f && Vector3.Distance(transform.position, point) > 3f) return false;
+        if (Vector3.Dot(transform.forward, Maf.Direction(transform.position, point)) < 0.75f && Vector3.Distance(transform.position, point) > 3f) return false;
 
         // linecast to target point doesn't hit anything, or the hit point is within 1 unit of the target point
         if (Physics.Linecast(posWithOffset, point + Vector3.up, out RaycastHit hit))
@@ -192,29 +205,44 @@ public class WendigoAI : MonoBehaviour
 
         if (toPlayer) return GetRandomPositionAroundPoint(playerTransform.position, minApproachRadius, maxApproachRadius);
         else return GetRandomPositionAroundPoint(transform.position, minWanderRadius, maxWanderRadius);
+    }
 
-        Vector3 GetRandomPositionAroundPoint(Vector3 point, float minRadius, float maxRadius)
+    Vector3 GetRandomPositionAroundPoint(Vector3 point, float minRadius, float maxRadius)
+    {
+        for (int i = 0; i < 50; i++)
         {
-            for (int i = 0; i < 50; i++)
-            {
-                float radius = Random.Range(minRadius, maxRadius);
-                Vector3 randomOffset = Maf.GetRandomDirection().SetY(50f) * radius;
-                Vector3 raycastPos = point + randomOffset;
+            float radius = Random.Range(minRadius, maxRadius);
+            Vector3 randomOffset = Maf.GetRandomDirection().SetY(50f) * radius;
+            Vector3 raycastPos = point + randomOffset;
 
-                //if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && Mathf.Abs(transform.position.y - hit.point.y) <= maxHeightDifference) return hit.point;
-                if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 2f, NavMesh.AllAreas)) return navHit.position;
-            }
+            //if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && Mathf.Abs(transform.position.y - hit.point.y) <= maxHeightDifference) return hit.point;
+            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 2f, NavMesh.AllAreas)) return navHit.position;
+        }
 
-            //if (NavMesh.SamplePosition(target.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
-            //{
-            //    //lastSeenPos = target.position;
-            //    lastSeenPos = hit.position;
-            //    state = State.Investigating;
-            //    target = null;
-            //}
+        //if (NavMesh.SamplePosition(target.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+        //{
+        //    //lastSeenPos = target.position;
+        //    lastSeenPos = hit.position;
+        //    state = State.Investigating;
+        //    target = null;
+        //}
 
-            Debug.Log($"GetRandomPositionAroundPoint exit early!");
-            return point;
+        Debug.Log($"GetRandomPositionAroundPoint exit early!");
+        return point;
+    }
+
+
+    public void Photographed(ImageParams imageParams)
+    {
+        Debug.Log($"Wendigo photographed, used flash: {imageParams.UsedFlash}");
+
+        if (imageParams.UsedFlash)
+        {
+            Vector3 dirAwayFromPlayer = Maf.Direction(GameManager.Instance.PlayerTransform.position, transform.position);
+            Vector3 point = GetRandomPositionAroundPoint(dirAwayFromPlayer * Random.Range(15f, 25f), 10f, 20f);
+            roamTarget = point;
+            roamingWait = 5f;
+            flashed = 8f;
         }
     }
 

@@ -18,7 +18,8 @@ public class SoundCollectionSO : ScriptableObject
 
     public bool TryGetSounds(out Sound[] sounds)
     {
-        Debug.Log($"Get sounds");
+        //Debug.Log($"Get sounds");
+        
         //if (soundList == null)
         //{
         //    List<Sound> tempSoundList = new List<Sound>();
