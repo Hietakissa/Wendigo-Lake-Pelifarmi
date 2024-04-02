@@ -12,10 +12,10 @@ public class DraggableClue : MonoBehaviour, IDragHandler, IBeginDragHandler,  IE
     [field: SerializeField] public TextMeshProUGUI Text { get; private set; }
 
 
-    void Start()
-    {
-        EventManager.UI.RegisterDraggableClue(this);
-    }
+    //void Start()
+    //{
+    //    EventManager.UI.RegisterDraggableClue(this);
+    //}
 
 
     public void SetClueData(ClueSO clueData)

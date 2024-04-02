@@ -152,18 +152,28 @@ public class UIManager : Manager
     {
         //if (clue.clueData.GetClueType != ClueType.Text) return;
 
-        foreach (DraggableClue currentClue in draggableClues)
+        Debug.Log($"draggable clues: {draggableClues.Count}");
+        for (int i = draggableClues.Count - 1; i >= 0; i--)
         {
+            DraggableClue currentClue = draggableClues[i];
+
             if (TypeMatch(clue, currentClue)) continue;
             if (!IDMatch(clue, currentClue)) continue;
             if (CheckForOverlap((RectTransform)currentClue.transform, (RectTransform)clue.transform))
             {
                 //TextCollectionSO clueCompletion = clueCompletionDialogues[clue.clueData.ID];
+                Debug.Log($"Checking dragged: {clue.gameObject.name}, other: {currentClue.gameObject.name}");
+
                 TextCollectionSO clueCompletion = clue.clueData.CompletionDialogue;
                 if (clueCompletion) EventManager.UI.PlayDialogue(clueCompletion);
 
+                Debug.Log($"removing {clue.gameObject.name} and {currentClue.gameObject.name}");
+
                 Destroy(clue.gameObject);
                 Destroy(currentClue.gameObject);
+                draggableClues.Remove(clue);
+                draggableClues.Remove(currentClue);
+                break;
             }
         }
 
@@ -181,19 +191,26 @@ public class UIManager : Manager
         }
     }
 
-    void EventManager_OnRegisterDraggableClue(DraggableClue clue) => draggableClues.Add(clue);
+    //void EventManager_OnRegisterDraggableClue(DraggableClue clue) => draggableClues.Add(clue);
 
     void UI_OnUnlockClue(ClueSO clue)
     {
         Debug.Log($"unlock clue: {clue.GetClueType}{clue.ID}");
 
+        float x = Random.Range(-(Screen.width * 0.8f * 0.5f), Screen.width * 0.8f * 0.5f);
+        float y = Random.Range(-(Screen.height * 0.8f * 0.5f), Screen.height * 0.8f * 0.5f);
+        Debug.Log($"width: {Screen.width}, x: {x}, height: {Screen.height}, y: {y}");
+
         DraggableClue draggableClue = null;
         switch (clue.GetClueType)
         {
             case ClueType.Image:
+                ImageClueSO imageClue = clue as ImageClueSO;
+
                 draggableClue = Instantiate(imageCluePrefab, puzzleUI.transform);
                 draggableClue.SetClueData(clue);
-                draggableClue.Image.sprite = (clue as ImageClueSO).Image;
+                draggableClue.Image.sprite = imageClue.Image;
+                ((RectTransform)draggableClue.transform).sizeDelta = new Vector2(imageClue.Image.rect.width, imageClue.Image.rect.height) * 0.5f;
                 break;
 
             case ClueType.Text:
@@ -203,7 +220,12 @@ public class UIManager : Manager
                 break;
         }
 
-        if (draggableClue != null) draggableClues.Add(draggableClue);
+        if (draggableClue != null)
+        {
+            draggableClues.Add(draggableClue);
+            //draggableClue.transform.position = new Vector3(x, y, draggableClue.transform.position.z);
+            ((RectTransform)draggableClue.transform).anchoredPosition = new Vector2(x, y);
+        }
         else Debug.Log("COULD NOT CREATE UI CLUE ELEMENT FOR SOME REASON.");
         
 
@@ -228,7 +250,7 @@ public class UIManager : Manager
         EventManager.UI.OnPlayDialogue += EventManager_OnPlayDialogue;
         EventManager.UI.OnEndDrag += EventManager_OnEndDrag;
 
-        EventManager.UI.OnRegisterDraggableClue += EventManager_OnRegisterDraggableClue;
+        //EventManager.UI.OnRegisterDraggableClue += EventManager_OnRegisterDraggableClue;
 
         EventManager.UI.OnUnlockClue += UI_OnUnlockClue;
 
@@ -241,7 +263,7 @@ public class UIManager : Manager
         EventManager.UI.OnPlayDialogue -= EventManager_OnPlayDialogue;
         EventManager.UI.OnEndDrag -= EventManager_OnEndDrag;
 
-        EventManager.UI.OnRegisterDraggableClue -= EventManager_OnRegisterDraggableClue;
+        //EventManager.UI.OnRegisterDraggableClue -= EventManager_OnRegisterDraggableClue;
 
         EventManager.UI.OnUnlockClue -= UI_OnUnlockClue;
 

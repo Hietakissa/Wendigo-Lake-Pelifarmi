@@ -122,5 +122,6 @@ public enum TerrainMaterial
 {
     Grass,
     Dirt,
-    Wood
+    Wood,
+    Sand
 }

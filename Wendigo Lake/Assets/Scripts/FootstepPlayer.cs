@@ -15,7 +15,7 @@ public class FootstepPlayer : MonoBehaviour
     Vector3 lastPos;
     float distanceMoved;
 
-    const float CONST_GROUNDCHECKOFFSET = 0.1f;
+    const float CONST_GROUNDCHECKOFFSET = 0.3f;
 
     void Awake()
     {
