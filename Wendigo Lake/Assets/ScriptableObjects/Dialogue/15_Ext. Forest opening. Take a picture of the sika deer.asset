@@ -15,7 +15,8 @@ MonoBehaviour:
   mode: 0
   dialogue:
   - <Speaker>k__BackingField: 0
-    <Expression>k__BackingField: {fileID: 0}
+    <Expression>k__BackingField: {fileID: 11400000, guid: 6f6be127fe2aea24a896e6a003539b61,
+      type: 2}
     text: 'The sika deer lifts its head and looks directly at the camera just as
       you take a picture. It turns out beautiful.
 
