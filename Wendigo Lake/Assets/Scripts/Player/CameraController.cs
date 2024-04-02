@@ -3,6 +3,7 @@ using HietakissaUtils;
 using UnityEngine.UI;
 using UnityEngine;
 using System.IO;
+using HietakissaUtils.QOL;
 
 public class CameraController : MonoBehaviour
 {
@@ -227,35 +228,36 @@ public class CameraController : MonoBehaviour
             }
 
             photoDelay = true;
-            yield return new WaitForSeconds(imageDelay);
+            //yield return new WaitForSeconds(imageDelay);
+            yield return QOL.GetWaitForSeconds(imageDelay);
             photoDelay = false;
 
-            handheldCam.targetTexture = outputTexture;
-            handheldCam.Render();
-
-            Texture2D image = ToTexture2D(outputTexture, format);
-            outputImage.texture = image;
-            handheldCam.targetTexture = null;
+            //handheldCam.targetTexture = outputTexture;
+            //handheldCam.Render();
+            //
+            //Texture2D image = ToTexture2D(outputTexture, format);
+            //outputImage.texture = image;
+            //handheldCam.targetTexture = null;
             
 
             CheckObjectsInPhoto(usedFlash);
 
-            if (outputImageToDisk) SaveImageAsPNG();
+            //if (outputImageToDisk) SaveImageAsPNG();
 
 
-            void SaveImageAsPNG()
-            {
-                Color[] pixels = image.GetPixels();
-                for (int i = 0; i < pixels.Length; i++) pixels[i] = pixels[i].gamma;
-                image.SetPixels(pixels);
-                //image.Apply();
-
-
-                string directory = Path.Combine(Application.dataPath, "Image Test");
-                string path = Path.Combine(directory, "Image1.png");
-                if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
-                File.WriteAllBytes(path, image.EncodeToPNG());
-            }
+            //void SaveImageAsPNG()
+            //{
+            //    Color[] pixels = image.GetPixels();
+            //    for (int i = 0; i < pixels.Length; i++) pixels[i] = pixels[i].gamma;
+            //    image.SetPixels(pixels);
+            //    //image.Apply();
+            //
+            //
+            //    string directory = Path.Combine(Application.dataPath, "Image Test");
+            //    string path = Path.Combine(directory, "Image1.png");
+            //    if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+            //    File.WriteAllBytes(path, image.EncodeToPNG());
+            //}
         }
     }
 
@@ -277,6 +279,8 @@ public class CameraController : MonoBehaviour
 
             foreach (Transform losPoint in photographableObject.LOSChecks)
             {
+                Debug.DrawLine(transform.position, losPoint.position, Color.white, 3f);
+
                 Vector3 screenPoint = handheldCam.WorldToViewportPoint(losPoint.position);
                 if (PointInView(screenPoint) && DistanceCheck(losPoint.position) && LOSCheck(losPoint.position))
                 {

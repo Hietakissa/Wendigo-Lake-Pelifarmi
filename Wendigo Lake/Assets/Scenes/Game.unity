@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.002848895, g: 0.045800526, b: 0.1692363, a: 1}
+  m_IndirectSpecularColor: {r: 0.00206419, g: 0.031486683, b: 0.11401047, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2925,7 +2925,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2976,38 +2976,6 @@ MonoBehaviour:
     type: 3}
   textCluePrefab: {fileID: 8331540216016025260, guid: d1e435ac93daf7040a31d9907070b42c,
     type: 3}
---- !u!1 &1939993708 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8225152376799532654, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
-    type: 3}
-  m_PrefabInstance: {fileID: 5472229629797590943}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1939993711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1939993708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc5cdc8dd91e41542a25b80fb47e2d9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  materialStepSounds:
-  - <Material>k__BackingField: 0
-    <Sounds>k__BackingField: {fileID: 11400000, guid: 649173f12b1c0df4facca3d4e4d06671,
-      type: 2}
-  - <Material>k__BackingField: 1
-    <Sounds>k__BackingField: {fileID: 11400000, guid: 74035b680aa6f3a4ba1591a4062e92d1,
-      type: 2}
-  - <Material>k__BackingField: 2
-    <Sounds>k__BackingField: {fileID: 11400000, guid: ca37ab2747161804f95e3e400ed72b41,
-      type: 2}
-  defaultFootSteps: {fileID: 11400000, guid: 74035b680aa6f3a4ba1591a4062e92d1, type: 2}
-  stepThreshold: 1.9
-  groundCheckPos: {fileID: 426672232}
-  groundCheckDistance: 0.1
 --- !u!1 &1980338283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3698,23 +3666,6 @@ PrefabInstance:
       objectReference: {fileID: 295662155}
     - target: {fileID: 1539570858087089069, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
         type: 3}
-      propertyPath: captureImageSound
-      value: 
-      objectReference: {fileID: 11400000, guid: 6c66ae728d48a6444885abde7917d27f,
-        type: 2}
-    - target: {fileID: 1539570858087089069, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
-        type: 3}
-      propertyPath: captureImageSounds
-      value: 
-      objectReference: {fileID: 11400000, guid: 6c66ae728d48a6444885abde7917d27f,
-        type: 2}
-    - target: {fileID: 1539570858087089069, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
-        type: 3}
-      propertyPath: captureImageSounds.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1539570858087089069, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
-        type: 3}
       propertyPath: flashProgressImages.Array.data[0]
       value: 
       objectReference: {fileID: 569487073}
@@ -3723,11 +3674,6 @@ PrefabInstance:
       propertyPath: flashProgressImages.Array.data[1]
       value: 
       objectReference: {fileID: 1217312075}
-    - target: {fileID: 1539570858087089069, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
-        type: 3}
-      propertyPath: intensitySpring.<Max>k__BackingField
-      value: 110
-      objectReference: {fileID: 0}
     - target: {fileID: 5593739781455330693, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3781,11 +3727,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8225152376799532654, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1939993711}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6, type: 3}
 --- !u!1001 &6668277592380919271
 PrefabInstance:
@@ -4173,16 +4115,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wendigo
-      objectReference: {fileID: 0}
-    - target: {fileID: 4331389325067035399, guid: 3b80fab0e71ce114ea8189fde802acef,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4885941433924962493, guid: 3b80fab0e71ce114ea8189fde802acef,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5857965075879572669, guid: 3b80fab0e71ce114ea8189fde802acef,
         type: 3}

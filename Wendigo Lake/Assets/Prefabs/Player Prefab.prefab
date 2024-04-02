@@ -345,7 +345,7 @@ MonoBehaviour:
   handheldCam: {fileID: 5267025578232959820}
   imageDelay: 0.1
   format: 74
-  flashCooldown: 1
+  flashCooldown: 6
   flashLight: {fileID: 4768586350849396730}
   flashIntensityMultiplier: 2
   intensitySpring:
@@ -353,12 +353,13 @@ MonoBehaviour:
     damping: 0.7
     goal: 0
     <Min>k__BackingField: 0
-    <Max>k__BackingField: 250
+    <Max>k__BackingField: 110
   flashProgressImages:
   - {fileID: 0}
   - {fileID: 0}
   flashIndicator: {fileID: 0}
   outputImageToDisk: 0
+  captureImageSounds: {fileID: 11400000, guid: 6c66ae728d48a6444885abde7917d27f, type: 2}
 --- !u!65 &599919016760668172
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -642,6 +643,7 @@ GameObject:
   - component: {fileID: 4636437058417857258}
   - component: {fileID: 5542609158983817663}
   - component: {fileID: 9030235536505207138}
+  - component: {fileID: 269463802494858898}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -704,13 +706,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c4c0839d4f1994d83c7baa677b33ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4.5
+  speed: 4
   runMultiplier: 1.5
-  jumpForce: 3.5
+  jumpForce: 0
   crouchHeight: 0.6
   crouchMultiplier: 0.6
   airMultiplier: 0.5
-  stepHeight: 0.1
+  stepHeight: 0.2
   coyoteTime: 0.1
   jumpBufferTime: 0.2
   allowHoldingJump: 0
@@ -727,3 +729,29 @@ MonoBehaviour:
   sphereCastRadius: 0.34
   sphereCastOffset: 0.03
   rayCastOffset: 0.03
+--- !u!114 &269463802494858898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8225152376799532654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc5cdc8dd91e41542a25b80fb47e2d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialStepSounds:
+  - <Material>k__BackingField: 0
+    <Sounds>k__BackingField: {fileID: 11400000, guid: 649173f12b1c0df4facca3d4e4d06671,
+      type: 2}
+  - <Material>k__BackingField: 1
+    <Sounds>k__BackingField: {fileID: 11400000, guid: 74035b680aa6f3a4ba1591a4062e92d1,
+      type: 2}
+  - <Material>k__BackingField: 2
+    <Sounds>k__BackingField: {fileID: 11400000, guid: ca37ab2747161804f95e3e400ed72b41,
+      type: 2}
+  defaultFootSteps: {fileID: 11400000, guid: 74035b680aa6f3a4ba1591a4062e92d1, type: 2}
+  stepThreshold: 1.9
+  groundCheckPos: {fileID: 4636437058417857258}
+  groundCheckDistance: 0.1

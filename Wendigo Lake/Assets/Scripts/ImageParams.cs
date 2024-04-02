@@ -1,11 +1,11 @@
 public struct ImageParams
 {
-    public readonly bool usedFlash;
-    public readonly bool wasHidden;
+    public readonly bool UsedFlash;
+    public readonly bool WasHidden;
 
     public ImageParams(bool usedFlash, bool wasHidden)
     {
-        this.usedFlash = usedFlash;
-        this.wasHidden = wasHidden;
+        this.UsedFlash = usedFlash;
+        this.WasHidden = wasHidden;
     }
 }
