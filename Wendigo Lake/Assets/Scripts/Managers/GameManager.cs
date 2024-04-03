@@ -1,7 +1,8 @@
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using HietakissaUtils.QOL;
 using HietakissaUtils;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public void SetPlayerVisibility(float visibility) => PlayerVisibility = visibility;
     public float PlayerVisibility { get; private set; }
+    public float Sensitivity = 1f;
 
     public bool Paused { get; private set; }
 
@@ -37,7 +39,11 @@ public class GameManager : MonoBehaviour
         {
             manager.Initialize();
         }
+
+        Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
     }
+
+    void Start() => EventManager.Pause();
 
     void Update()
     {
@@ -85,6 +91,16 @@ public class GameManager : MonoBehaviour
         return new Vector2Int(texturePos.x.RoundToNearest(), texturePos.z.RoundToNearest());
     }
 
+
+    public void UnPause()
+    {
+        EventManager.UnPause();
+    }
+
+    public void Quit()
+    {
+        QOL.Quit();
+    }
 
     public static void ShowMouse()
     {

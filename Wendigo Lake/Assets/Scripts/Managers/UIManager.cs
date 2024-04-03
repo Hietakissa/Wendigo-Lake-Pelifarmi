@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HietakissaUtils.QOL;
 using System.Collections;
+using UnityEngine.Audio;
 using HietakissaUtils;
 using UnityEngine.UI;
 using UnityEngine;
@@ -40,6 +41,8 @@ public class UIManager : Manager
     [SerializeField] Transform textParent;
 
     [SerializeField] JournalTab[] tabs;
+
+    [SerializeField] AudioMixerGroup masterMixer;
 
 
     void Awake()
@@ -133,7 +136,8 @@ public class UIManager : Manager
             {
                 Debug.Log($"Writing text: {((float)endIndex / maxIndex * 100f).RoundDown()}%");
 
-                typeTime += typeSpeed * Time.unscaledDeltaTime;
+                //typeTime += typeSpeed * Time.unscaledDeltaTime;
+                typeTime += typeSpeed * Time.deltaTime;
 
                 int newIndices = typeTime.RoundDown();
                 typeTime -= newIndices;
@@ -146,7 +150,8 @@ public class UIManager : Manager
                 yield return null;
             }
 
-            yield return QOL.GetUnscaledWaitForSeconds(3f);
+            //yield return QOL.GetUnscaledWaitForSeconds(3f);
+            yield return QOL.GetWaitForSeconds(3f);
         }
     }
 
@@ -244,6 +249,27 @@ public class UIManager : Manager
         {
             journalTab.gameObject.SetActive(journalTab.TabName == tab.TabName);
         }
+    }
+
+
+    public void ChangeSensitivity(float sensitivity)
+    {
+        GameManager.Instance.Sensitivity = sensitivity;
+    }
+
+    public void ChangeVolume(float volume)
+    {
+        masterMixer.audioMixer.SetFloat("Master Volume", Maf.ReMap(0f, 100f, -20f, 20f, volume));
+    }
+
+    int[] fpsCap = new int[] { 0, 30, 60, 90, 120, 144, 240};
+    public void ChangeFPSCap(int index)
+    {
+        if (index == 7)
+        {
+            Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
+        }
+        else Application.targetFrameRate = fpsCap[index];
     }
 
 

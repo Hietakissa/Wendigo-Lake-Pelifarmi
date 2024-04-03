@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e424a7489e1c31646bb0402ae79f6404, type: 3}
   m_Name: TakePhoto
   m_EditorClassIdentifier: 
-  SoundCollectionType: 2
+  <SoundCollectionType>k__BackingField: 2
+  <MixerGroup>k__BackingField: {fileID: 0}
   sounds:
   - <Type>k__BackingField: 1
     <Clip>k__BackingField: {fileID: 8300000, guid: 672e9f7160bd5b34484fe4252adb5681,

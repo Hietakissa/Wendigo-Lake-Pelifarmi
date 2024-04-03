@@ -1,9 +1,8 @@
+using HietakissaUtils.QOL;
 using System.Collections;
 using HietakissaUtils;
 using UnityEngine.UI;
 using UnityEngine;
-using System.IO;
-using HietakissaUtils.QOL;
 
 public class CameraController : MonoBehaviour
 {
@@ -76,6 +75,7 @@ public class CameraController : MonoBehaviour
     void LateUpdate()
     {
         if (GameManager.Instance.Paused) return;
+        sensitivity = GameManager.Instance.Sensitivity;
 
         GetInput();
         Rotate();
