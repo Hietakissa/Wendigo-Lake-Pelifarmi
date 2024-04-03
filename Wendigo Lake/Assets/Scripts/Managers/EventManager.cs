@@ -20,6 +20,10 @@ public static class EventManager
     public static event Action<SoundCollectionSO,Vector3> OnPlaySoundAtPosition;
 
 
+    public static void PlayerDied() => OnPlayerDied?.Invoke();
+    public static event Action OnPlayerDied;
+
+
     public static class UI
     {
         public static void PlayDialogue(TextCollectionSO textCollection) => OnPlayDialogue?.Invoke(textCollection);
@@ -39,5 +43,8 @@ public static class EventManager
     {
         public static void PhotographDeer(DeerAI deer) => OnPhotographDeer?.Invoke(deer);
         public static event Action<DeerAI> OnPhotographDeer;
+
+        public static void DeerDied(DeerAI deer) => OnDeerDied?.Invoke(deer);
+        public static event Action<DeerAI> OnDeerDied;
     }
 }

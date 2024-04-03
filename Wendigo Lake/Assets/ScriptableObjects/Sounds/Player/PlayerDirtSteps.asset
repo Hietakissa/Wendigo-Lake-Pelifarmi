@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e424a7489e1c31646bb0402ae79f6404, type: 3}
+  m_Name: PlayerDirtSteps
+  m_EditorClassIdentifier: 
+  <SoundCollectionType>k__BackingField: 1
+  <MixerGroup>k__BackingField: {fileID: 0}
+  sounds:
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: 9d3983de40d1fac4e8957c368481c4ee,
+      type: 3}
+    Volume: 1
+    MinPitchDeviation: -0.1
+    MaxPitchDeviation: 0.1
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: fd4b1b798a31a904e8d00d980178a6a6,
+      type: 3}
+    Volume: 1
+    MinPitchDeviation: -0.1
+    MaxPitchDeviation: 0.1
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: af52d4ec68d071449b83aaeca3871177,
+      type: 3}
+    Volume: 1
+    MinPitchDeviation: -0.1
+    MaxPitchDeviation: 0.1
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: f44c019f350d6a448b63726f3fedfa22,
+      type: 3}
+    Volume: 1
+    MinPitchDeviation: -0.1
+    MaxPitchDeviation: 0.1
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: c35d52d72d06ea642a945b3cb7935ba9,
+      type: 3}
+    Volume: 1
+    MinPitchDeviation: -0.1
+    MaxPitchDeviation: 0.1

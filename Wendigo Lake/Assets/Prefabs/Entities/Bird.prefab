@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7623321008038564028}
   - component: {fileID: 4512405759353262846}
   - component: {fileID: 8930911124107868069}
+  - component: {fileID: 4821335927288231701}
   m_Layer: 8
   m_Name: Bird
   m_TagString: Untagged
@@ -111,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
+  animator: {fileID: 4821335927288231701}
 --- !u!114 &8930911124107868069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +126,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monologueText: {fileID: 11400000, guid: cf95002b92ef4f9478f8edc2e308fea6, type: 2}
+--- !u!114 &4821335927288231701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873589192997533305}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12aaefe5e88fdca48a3701852acf1ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _material: {fileID: 2100000, guid: 307e132929c2f2e429c0ab69a2d905c9, type: 2}
+  meshRend: {fileID: 5214273126009851412}
+  directions:
+  - name: Fly
+    Texture:
+    - {fileID: 2800000, guid: eef42d8469a76b94f8ce4831ca8e8b55, type: 3}
+    - {fileID: 2800000, guid: 716458129da96524a9a3488affd3d62f, type: 3}
+    Direction: {x: 0, y: 0, z: 0}
+  animationSpeed: 5
 --- !u!1 &5993632929800999224
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +175,7 @@ Transform:
   m_GameObject: {fileID: 5993632929800999224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.111, y: 0.046, z: 0}
+  m_LocalPosition: {x: -0.005, y: 0.046, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
   m_Children: []

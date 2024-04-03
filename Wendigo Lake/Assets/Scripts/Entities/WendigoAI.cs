@@ -17,6 +17,11 @@ public class WendigoAI : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float reachedPosThreshold = 0.2f;
 
+    [Header("Sounds")]
+    [SerializeField] SoundCollectionSO approachSounds;
+    [SerializeField] SoundCollectionSO aggroSounds;
+    [SerializeField] SoundCollectionSO eatSounds;
+
     [Header("Other")]
     [SerializeField] float sightRange = 15f;
     [SerializeField] float maxHeightDifference = 2f;
@@ -32,7 +37,10 @@ public class WendigoAI : MonoBehaviour
     float roamingWait;
 
     State state;
+    State lastState;
     float flashed;
+
+    int timesNotGoneToPlayer;
 
 
     List<DeerAI> deer = new List<DeerAI>();
@@ -109,10 +117,13 @@ public class WendigoAI : MonoBehaviour
                 //    return;
                 //}
 
+                if (lastState != State.Chasing) EventManager.PlaySoundAtPosition(aggroSounds, transform.position);
+
                 if (target == playerTransform && flashed <= 0f && Vector3.Distance(transform.position, playerTransform.position) < attackDistance)
                 {
                     Debug.Log($"reached player?");
-                    QOL.Quit();
+                    EventManager.PlayerDied();
+                    //QOL.Quit();
                 }
                 else if (CanSeePoint(target.position))
                 {
@@ -122,8 +133,11 @@ public class WendigoAI : MonoBehaviour
 
                         if (seeDeer)
                         {
+                            EventManager.Photography.DeerDied(seeDeer);
                             deer.Remove(seeDeer);
                             Destroy(seeDeer.gameObject);
+
+                            EventManager.PlaySoundAtPosition(eatSounds, transform.position);
                         }
                         state = State.Roaming;
                     }
@@ -171,6 +185,8 @@ public class WendigoAI : MonoBehaviour
         string debugString = $"state: {state}\ntarget: {(target ? target.name : "null")}\nsees player: {CanSeePoint(playerTransform.position)}\nDistance:{Vector3.Distance(transform.position, GameManager.Instance.PlayerTransform.position).RoundToDecimalPlaces(1)}";
         //Debug.Log(debugString);
         text.text = debugString;
+
+        lastState = state;
     }
 
 
@@ -178,7 +194,7 @@ public class WendigoAI : MonoBehaviour
     {
         Vector3 posWithOffset = transform.position + Vector3.up;
         if (Vector3.Distance(posWithOffset, point) > sightRange) return false;
-        if (Vector3.Dot(transform.forward, Maf.Direction(transform.position, point)) < 0.75f && Vector3.Distance(transform.position, point) > 3f) return false;
+        if (Vector3.Dot(transform.forward, Maf.Direction(transform.position, point)) < 0.85f && Vector3.Distance(transform.position, point) > 3f) return false;
 
         // linecast to target point doesn't hit anything, or the hit point is within 1 unit of the target point
         if (Physics.Linecast(posWithOffset, point + Vector3.up, out RaycastHit hit))
@@ -203,8 +219,18 @@ public class WendigoAI : MonoBehaviour
         bool toPlayer = Maf.RandomBool(20);
         Debug.Log($"target is to player: {toPlayer}");
 
-        if (toPlayer) return GetRandomPositionAroundPoint(playerTransform.position, minApproachRadius, maxApproachRadius);
-        else return GetRandomPositionAroundPoint(transform.position, minWanderRadius, maxWanderRadius);
+        if (toPlayer && timesNotGoneToPlayer >= 7)
+        {
+            timesNotGoneToPlayer = 0;
+
+            EventManager.PlaySoundAtPosition(approachSounds, transform.position);
+            return GetRandomPositionAroundPoint(playerTransform.position, minApproachRadius, maxApproachRadius);
+        }
+        else
+        {
+            timesNotGoneToPlayer++;
+            return GetRandomPositionAroundPoint(transform.position, minWanderRadius, maxWanderRadius);
+        }
     }
 
     Vector3 GetRandomPositionAroundPoint(Vector3 point, float minRadius, float maxRadius)
@@ -216,7 +242,7 @@ public class WendigoAI : MonoBehaviour
             Vector3 raycastPos = point + randomOffset;
 
             //if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && Mathf.Abs(transform.position.y - hit.point.y) <= maxHeightDifference) return hit.point;
-            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 2f, NavMesh.AllAreas)) return navHit.position;
+            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 10f, NavMesh.AllAreas)) return navHit.position;
         }
 
         //if (NavMesh.SamplePosition(target.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))

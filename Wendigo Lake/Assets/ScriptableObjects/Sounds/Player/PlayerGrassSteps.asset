@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e424a7489e1c31646bb0402ae79f6404, type: 3}
+  m_Name: PlayerGrassSteps
+  m_EditorClassIdentifier: 
+  SoundCollectionType: 1
+  sounds:
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: 02de6baff7893d34592cb3bd848bfe0e,
+      type: 3}
+    Volume: 0.7
+    MinPitchDeviation: -0.1
+    MaxPitchDeviation: 0.1
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: fe38b8828a8b64a489a087d83c33ab77,
+      type: 3}
+    Volume: 0.7
+    MinPitchDeviation: -0.1
+    MaxPitchDeviation: 0.1
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: e40296613f6380a488ed5e0250c715a1,
+      type: 3}
+    Volume: 0.7
+    MinPitchDeviation: -0.1
+    MaxPitchDeviation: 0.1
+  - <Type>k__BackingField: 1
+    <Clip>k__BackingField: {fileID: 8300000, guid: eff3eec63a3334e4189498a8a01645ce,
+      type: 3}
+    Volume: 0.7
+    MinPitchDeviation: -0.1
+    MaxPitchDeviation: 0.1

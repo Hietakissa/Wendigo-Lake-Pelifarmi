@@ -708,7 +708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   runMultiplier: 1.5
-  jumpForce: 0
+  jumpForce: 3.5
   crouchHeight: 0.6
   crouchMultiplier: 0.6
   airMultiplier: 0.5
@@ -750,6 +750,9 @@ MonoBehaviour:
       type: 2}
   - <Material>k__BackingField: 2
     <Sounds>k__BackingField: {fileID: 11400000, guid: ca37ab2747161804f95e3e400ed72b41,
+      type: 2}
+  - <Material>k__BackingField: 3
+    <Sounds>k__BackingField: {fileID: 11400000, guid: 76d05a97784ee39498d6e080b652ff1b,
       type: 2}
   defaultFootSteps: {fileID: 11400000, guid: 74035b680aa6f3a4ba1591a4062e92d1, type: 2}
   stepThreshold: 1.9

@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using HietakissaUtils.QOL;
 using System.Collections;
+using UnityEngine.Audio;
 using HietakissaUtils;
 using UnityEngine;
 
 public class SoundManager : Manager
 {
+    [SerializeField] AudioMixerGroup defaultMixerGroup;
+
     Queue<AudioSource> audioSourceQueue = new Queue<AudioSource>();
 
     Transform sourceParent;
@@ -54,20 +57,20 @@ public class SoundManager : Manager
         switch (soundCollection.SoundCollectionType)
         {
             case SoundCollectionType.Random:
-                if (soundCollection.TryGetSound(out Sound sound)) PlaySound(sound);
-            break;
+                if (soundCollection.TryGetSound(out Sound sound)) PlaySound(soundCollection, sound);
+                break;
 
             case SoundCollectionType.All:
                 if (soundCollection.TryGetSounds(out Sound[] sounds))
                 {
-                    foreach (Sound foundSound in sounds) PlaySound(foundSound);
+                    foreach (Sound foundSound in sounds) PlaySound(soundCollection, foundSound);
                 }
-            break;
+                break;
         }
 
-        
 
-        void PlaySound(Sound sound)
+
+        void PlaySound(SoundCollectionSO soundCollection, Sound sound)
         {
             AudioSource source = GetAudioSource();
             source.transform.position = position;
@@ -77,6 +80,7 @@ public class SoundManager : Manager
             source.volume = sound.Volume * Random.Range(0.95f, 1.05f);
             source.clip = sound.Clip;
 
+            source.outputAudioMixerGroup = soundCollection.MixerGroup == null ? defaultMixerGroup : soundCollection.MixerGroup;
             source.Play();
 
 
