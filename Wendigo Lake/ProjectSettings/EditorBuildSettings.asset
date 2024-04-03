@@ -8,4 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 7f66dc10954276646a3918b520494f9b
+  - enabled: 1
+    path: Assets/Scenes/mokki.unity
+    guid: 470e919b0abf7cd48979ae5ad8780454
+  - enabled: 1
+    path: Assets/Scenes/kuvausalue.unity
+    guid: 3802315738bc9b04186bd69353db1c75
+  - enabled: 1
+    path: Assets/Scenes/cave.unity
+    guid: 87cec7d6e097dc041a8834f4b9109196
+  - enabled: 1
+    path: Assets/Scenes/campgrounds.unity
+    guid: aa4c28474596b134592d4acbc47d7bcd
+  - enabled: 1
+    path: Assets/Scenes/graves.unity
+    guid: 0918608e53fd4294cb5521320f2c719b
   m_configObjects: {}
