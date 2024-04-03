@@ -52,17 +52,6 @@ public class SpriteAnimator : MonoBehaviour
         mat.mainTexture = directions[closestIndex].Texture[currentAnimationIndex];
         mat.SetTexture("_EmissionMap", directions[closestIndex].Texture[currentAnimationIndex]);
     }
-
-    void OnDrawGizmos()
-    {
-        for (int i = 0; i < 8; i++)
-        {
-            Gizmos.DrawRay(transform.position + Vector3.up * i * 0.5f, transform.parent.forward);
-        }
-        //Gizmos.DrawRay(transform.position, transform.parent.forward);
-        //Gizmos.DrawRay(transform.position + Vector3.up * 0.5f, transform.parent.forward);
-        //Gizmos.DrawRay(transform.position + Vector3.up, transform.parent.forward);
-    }
 }
 
 [System.Serializable]

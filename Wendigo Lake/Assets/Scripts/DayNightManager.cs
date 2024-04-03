@@ -17,29 +17,29 @@ public class DayNightManager : MonoBehaviour
     bool progressNight;
 
 
-    void Awake()
-    {
-        dayTime = 0f;
-        nightTime = 0f;
-
-        skyMaterial.SetFloat("_dayTime", 0f);
-        skyMaterial.SetFloat("_dayToNight", 0f);
-        RenderSettings.fogColor = fogColor[0];
-    }
-
-    void Update()
-    {
-        if (progressDay && dayTime < 1f)
-        {
-            dayTime = Mathf.Min(1f, dayTime + timeMultiplier * Time.deltaTime);
-            UpdateValues();
-        }
-        else if (progressNight && nightTime < 1f)
-        {
-            nightTime = Mathf.Min(1f, nightTime + timeMultiplier * Time.deltaTime);
-            UpdateValues();
-        }
-    }
+    //void Awake()
+    //{
+    //    dayTime = 0f;
+    //    nightTime = 0f;
+    //
+    //    skyMaterial.SetFloat("_dayTime", 0f);
+    //    skyMaterial.SetFloat("_dayToNight", 0f);
+    //    RenderSettings.fogColor = fogColor[0];
+    //}
+    //
+    //void Update()
+    //{
+    //    if (progressDay && dayTime < 1f)
+    //    {
+    //        dayTime = Mathf.Min(1f, dayTime + timeMultiplier * Time.deltaTime);
+    //        UpdateValues();
+    //    }
+    //    else if (progressNight && nightTime < 1f)
+    //    {
+    //        nightTime = Mathf.Min(1f, nightTime + timeMultiplier * Time.deltaTime);
+    //        UpdateValues();
+    //    }
+    //}
 
     void UpdateValues()
     {

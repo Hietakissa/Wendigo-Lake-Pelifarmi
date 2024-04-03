@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHABLEND_ON
+  - _EMISSION
   - _FADING_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 0
@@ -52,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ddd1eda6f91a4f7418a7ee5c788425bb, type: 3}
+        m_Texture: {fileID: 2800000, guid: d699c3f22a547ec41837584b78d848f3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -107,7 +108,7 @@ Material:
     - _DistortionStrengthScaled: 0
     - _DstBlend: 10
     - _DstBlendAlpha: 0
-    - _EmissionEnabled: 0
+    - _EmissionEnabled: 1
     - _EnvironmentReflections: 1
     - _FlipbookMode: 0
     - _GlossMapScale: 0
@@ -136,7 +137,7 @@ Material:
     - _CameraFadeParams: {r: 0.6, g: 1.4285716, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor: {r: 4.4297204, g: 3.9890673, b: 0, a: 1}
+    - _EmissionColor: {r: 2.4622889, g: 2.4622889, b: 2.4622889, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

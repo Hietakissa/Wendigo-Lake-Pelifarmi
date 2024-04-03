@@ -9,6 +9,8 @@ public class BirdAI : MonoBehaviour
 
     Vector3 startScale;
 
+    [SerializeField] SpriteAnimator animator;
+
     const float dist = 35f;
 
     void Awake()
@@ -20,7 +22,6 @@ public class BirdAI : MonoBehaviour
     {
         if (moving)
         {
-
             Vector3 offset = new Vector3(Mathf.Sin(Time.time * 3f) * 1.2f, 0f, 0f);
 
             transform.Translate(Maf.Direction(transform.position, target) * speed * Time.deltaTime, Space.World);
@@ -40,5 +41,6 @@ public class BirdAI : MonoBehaviour
 
         moving = true;
         target = transform.position + new Vector3(Random.Range(-dist, dist), Random.Range(dist * 0.5f, dist), Random.Range(-dist, dist));
+        animator.enabled = true;
     }
 }

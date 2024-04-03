@@ -18,7 +18,7 @@ public class UIManager : Manager
     [SerializeField] Image delilahExpressionImage;
 
     [Header("Puzzle")]
-    [SerializeField] GameObject puzzleUI;
+    [SerializeField] GameObject pauseUI;
     //[SerializeField] TextCollectionSO[] clueCompletionDialogues;
 
     //[SerializeField] DraggableClue[] imageClues;
@@ -36,6 +36,10 @@ public class UIManager : Manager
 
     [SerializeField] DraggableClue imageCluePrefab;
     [SerializeField] DraggableClue textCluePrefab;
+    [SerializeField] Transform imageParent;
+    [SerializeField] Transform textParent;
+
+    [SerializeField] JournalTab[] tabs;
 
 
     void Awake()
@@ -207,14 +211,14 @@ public class UIManager : Manager
             case ClueType.Image:
                 ImageClueSO imageClue = clue as ImageClueSO;
 
-                draggableClue = Instantiate(imageCluePrefab, puzzleUI.transform);
+                draggableClue = Instantiate(imageCluePrefab, imageParent);
                 draggableClue.SetClueData(clue);
                 draggableClue.Image.sprite = imageClue.Image;
                 ((RectTransform)draggableClue.transform).sizeDelta = new Vector2(imageClue.Image.rect.width, imageClue.Image.rect.height) * 0.5f;
                 break;
 
             case ClueType.Text:
-                draggableClue = Instantiate(textCluePrefab, puzzleUI.transform);
+                draggableClue = Instantiate(textCluePrefab, textParent);
                 draggableClue.SetClueData(clue);
                 draggableClue.Text.text = (clue as TextClueSO).Text;
                 break;
@@ -234,14 +238,23 @@ public class UIManager : Manager
     }
 
 
+    public void OpenTab(JournalTab tab)
+    {
+        foreach (JournalTab journalTab in tabs)
+        {
+            journalTab.gameObject.SetActive(journalTab.TabName == tab.TabName);
+        }
+    }
+
+
     void EventManager_OnPause()
     {
-        puzzleUI.SetActive(true);
+        pauseUI.SetActive(true);
     }
 
     void EventManager_OnUnPause()
     {
-        puzzleUI.SetActive(false);
+        pauseUI.SetActive(false);
     }
 
 

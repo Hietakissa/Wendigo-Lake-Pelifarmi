@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HietakissaUtils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] MaterialColor[] terrainMaterials;
     [SerializeField] Texture2D splatMap;
+
+    [SerializeField] DeerAI deerPrefab;
+    [SerializeField] float deerSpawnDelay = 30f;
+    [SerializeField] int maxDeer = 10;
+    List<DeerAI> deer = new List<DeerAI>();
+    float deerSpawnTime;
 
     void Awake()
     {
@@ -38,6 +45,16 @@ public class GameManager : MonoBehaviour
         {
             if (Paused) EventManager.UnPause();
             else EventManager.Pause();
+        }
+
+        if (deer.Count < maxDeer)
+        {
+            deerSpawnTime += Time.deltaTime;
+            if (deerSpawnTime >= deerSpawnDelay)
+            {
+                deerSpawnTime -= deerSpawnDelay;
+                deer.Add(Instantiate(deerPrefab, Vector3.zero, Quaternion.identity));
+            }
         }
     }
 
@@ -94,6 +111,16 @@ public class GameManager : MonoBehaviour
         HideMouse();
     }
 
+    void EventManager_PlayerDied()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    void Photography_OnDeerDied(DeerAI deer)
+    {
+        this.deer.Remove(deer);
+    }
+
 
     public void RegisterPhotographableObject(PhotographableObject photographableObject) => photographableObjects.Add(photographableObject);
     //public void UnregisterPhotographableObject(int objectID) => photographableObjects.RemoveAt(objectID);
@@ -102,12 +129,20 @@ public class GameManager : MonoBehaviour
     {
         EventManager.OnPause += EventManager_OnPause;
         EventManager.OnUnPause += EventManager_OnUnPause;
+
+        EventManager.OnPlayerDied += EventManager_PlayerDied;
+
+        EventManager.Photography.OnDeerDied += Photography_OnDeerDied;
     }
 
     void OnDisable()
     {
         EventManager.OnPause -= EventManager_OnPause;
         EventManager.OnUnPause -= EventManager_OnUnPause;
+
+        EventManager.OnPlayerDied -= EventManager_PlayerDied;
+
+        EventManager.Photography.OnDeerDied -= Photography_OnDeerDied;
     }
 }
 

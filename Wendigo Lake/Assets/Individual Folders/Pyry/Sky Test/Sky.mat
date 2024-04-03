@@ -75,11 +75,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Brightness: 2
     - _DayToNightNormalized: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _dayTime: 0
-    - _dayToNight: 0
+    - _dayTime: 1
+    - _dayToNight: 0.964
     - _nightTime: 0
     m_Colors: []
   m_BuildTextureStacks: []
