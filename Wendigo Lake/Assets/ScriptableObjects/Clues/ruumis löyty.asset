@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ded8eb3a2a9e9ea46a4812479a81522e, type: 3}
-  m_Name: Text 1
+  m_Name: "ruumis l\xF6yty"
   m_EditorClassIdentifier: 
   <ID>k__BackingField: 1
-  <CompletionDialogue>k__BackingField: {fileID: 0}
-  text: The cabin door was locked tight.
+  <CompletionDialogue>k__BackingField: {fileID: 11400000, guid: b5f3c5e0a0a3db743894400ccf7a91ce,
+    type: 2}
+  text: There's a corpse hidden behind a shack by the lake.

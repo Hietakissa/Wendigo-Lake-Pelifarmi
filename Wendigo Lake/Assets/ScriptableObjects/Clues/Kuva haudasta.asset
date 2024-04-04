@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e199a5469a2b42341b46c42d6dd4f5cc, type: 3}
-  m_Name: Image 0
+  m_Name: Kuva haudasta
   m_EditorClassIdentifier: 
-  <ID>k__BackingField: 0
-  <CompletionDialogue>k__BackingField: {fileID: 11400000, guid: 0c64cc4c6b7aeac4e92266f3817b7f1e,
+  <ID>k__BackingField: 1
+  <CompletionDialogue>k__BackingField: {fileID: 11400000, guid: b5f3c5e0a0a3db743894400ccf7a91ce,
     type: 2}
-  <Image>k__BackingField: {fileID: 21300000, guid: 2788d75e0c9101d4481dcc771479bc5c,
+  <Image>k__BackingField: {fileID: 21300000, guid: 0623e07829d1d5843855b14e3077ed0d,
     type: 3}

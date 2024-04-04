@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e199a5469a2b42341b46c42d6dd4f5cc, type: 3}
-  m_Name: Image 2
+  m_Name: Kuva wendigosta
   m_EditorClassIdentifier: 
-  <ID>k__BackingField: 2
-  <CompletionDialogue>k__BackingField: {fileID: 0}
-  <Image>k__BackingField: {fileID: 21300000, guid: da36dc4b5600af44f9f92e105f230678,
+  <ID>k__BackingField: 3
+  <CompletionDialogue>k__BackingField: {fileID: 11400000, guid: f48dd00ac79a45a44b221e208c8eaf6f,
+    type: 2}
+  <Image>k__BackingField: {fileID: 21300000, guid: 2788d75e0c9101d4481dcc771479bc5c,
     type: 3}
