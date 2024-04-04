@@ -20,6 +20,8 @@ public class DeerAI : MonoBehaviour
 
     void Update()
     {
+        Debug.DrawRay(targetPos, Vector3.up, Color.magenta);
+
         if (Vector3.Distance(transform.position, targetPos) < 1.2f)
         {
             animator.enabled = false;
@@ -42,7 +44,8 @@ public class DeerAI : MonoBehaviour
         const float EXTENTS = 100f;
         Vector3 point = new Vector3(Random.Range(-EXTENTS, EXTENTS), 100f, Random.Range(-EXTENTS, EXTENTS));
         Vector3 position = GetRandomPositionAroundPoint(point, 20f, 80f);
-        transform.position = position;
+        agent.enabled = true;
+        agent.Warp(position);
         targetPos = position;
         wait = Random.Range(3f, 7f);
     }
@@ -66,7 +69,7 @@ public class DeerAI : MonoBehaviour
 
             //if (LOSBetweenPoints(point + Vector3.up * 0.2f, GameManager.Instance.PlayerTransform.position + Vector3.up * 0.2f)) continue;
 
-            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 2f, NavMesh.AllAreas))
+            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 20f, agent.areaMask))
             {
                 /*if (LOSBetweenPoints(point + Vector3.up * 0.2f, navHit.position + Vector3.up * 0.2f)) continue;
                 else */return navHit.position;

@@ -9829,6 +9829,7 @@ GameObject:
   - component: {fileID: 2204642908123041257}
   - component: {fileID: 8441000174639343665}
   - component: {fileID: 7178298933937968134}
+  - component: {fileID: 5630313239257467610}
   - component: {fileID: 8549415369413116926}
   m_Layer: 0
   m_Name: LOS Blocker
@@ -9948,6 +9949,29 @@ CapsuleCollider:
   m_Height: 3.63
   m_Direction: 1
   m_Center: {x: 0, y: -1.59, z: 0}
+--- !u!136 &5630313239257467610
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238494080504286294}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.42
+  m_Height: 2.9
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.54, z: 0}
 --- !u!114 &8549415369413116926
 MonoBehaviour:
   m_ObjectHideFlags: 0

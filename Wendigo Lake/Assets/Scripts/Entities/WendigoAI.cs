@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using HietakissaUtils.QOL;
 using HietakissaUtils;
 using UnityEngine.AI;
 using UnityEngine;
@@ -21,11 +20,14 @@ public class WendigoAI : MonoBehaviour
     [SerializeField] SoundCollectionSO approachSounds;
     [SerializeField] SoundCollectionSO aggroSounds;
     [SerializeField] SoundCollectionSO eatSounds;
+    [SerializeField] SoundCollectionSO attackSounds;
 
     [Header("Other")]
     [SerializeField] float sightRange = 15f;
     [SerializeField] float maxHeightDifference = 2f;
     [SerializeField] float attackDistance = 1.3f;
+
+    NavMeshQueryFilter navFilter;
 
 
     Transform playerTransform;
@@ -53,6 +55,9 @@ public class WendigoAI : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         state = State.Roaming;
+
+        navFilter.agentTypeID = GetComponent<NavMeshAgent>().agentTypeID;
+        navFilter.areaMask = NavMesh.AllAreas;
     }
 
     void Start()
@@ -65,13 +70,15 @@ public class WendigoAI : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.IsPlayerAlive || GameManager.Instance.HasWonGame) return;
+
         if (flashed > 0f)
         {
             state = State.Roaming;
             flashed -= Time.deltaTime;
         }
         else if (target) state = State.Chasing;
-
+        
         // bad enum state machine, but not much time
         switch (state)
         {
@@ -79,11 +86,11 @@ public class WendigoAI : MonoBehaviour
                 Debug.DrawLine(transform.position, roamTarget);
                 Debug.DrawRay(roamTarget, Vector3.up * 10f, Color.red);
 
-                if (Vector3.Distance(transform.position, GameManager.Instance.PlayerTransform.position) < 12f)
-                {
-                    state = State.Chasing;
-                    target = GameManager.Instance.PlayerTransform;
-                }
+                //if (Vector3.Distance(transform.position, GameManager.Instance.PlayerTransform.position) < 12f && IsPointOnNavmesh(GameManager.Instance.PlayerTransform.position));
+                //{
+                //    state = State.Chasing;
+                //    target = GameManager.Instance.PlayerTransform;
+                //}
 
                 if (MoveToPos(roamTarget))
                 {
@@ -94,7 +101,7 @@ public class WendigoAI : MonoBehaviour
                         roamTarget = PickTarget();
                         Debug.Log($"picked point: {roamTarget}");
 
-                        roamingWait = Random.Range(1f, 3f);
+                        roamingWait = Random.Range(0.4f, 2f);
                     }
                 }
             break;
@@ -122,10 +129,11 @@ public class WendigoAI : MonoBehaviour
                 if (target == playerTransform && flashed <= 0f && Vector3.Distance(transform.position, playerTransform.position) < attackDistance)
                 {
                     Debug.Log($"reached player?");
+                    EventManager.PlaySoundAtPosition(attackSounds, transform.position);
                     EventManager.PlayerDied();
                     //QOL.Quit();
                 }
-                else if (CanSeePoint(target.position))
+                else if (CanSeeTransform(target))
                 {
                     if (MoveToPos(target.position))
                     {
@@ -137,6 +145,7 @@ public class WendigoAI : MonoBehaviour
                             deer.Remove(seeDeer);
                             Destroy(seeDeer.gameObject);
 
+                            EventManager.PlaySoundAtPosition(attackSounds, transform.position);
                             EventManager.PlaySoundAtPosition(eatSounds, transform.position);
                         }
                         state = State.Roaming;
@@ -144,7 +153,7 @@ public class WendigoAI : MonoBehaviour
                 }
                 else
                 {
-                    if (NavMesh.SamplePosition(target.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+                    if (NavMesh.SamplePosition(target.position, out NavMeshHit hit, 15f, navFilter))
                     {
                         //lastSeenPos = target.position;
                         lastSeenPos = hit.position;
@@ -171,7 +180,7 @@ public class WendigoAI : MonoBehaviour
             }
 
 
-            if (CanSeePoint(currentDeer.transform.position))
+            if (CanSeeTransform(currentDeer.transform))
             {
                 target = currentDeer.transform;
                 state = State.Chasing;
@@ -180,9 +189,10 @@ public class WendigoAI : MonoBehaviour
             }
         }
 
-        if (!target && CanSeePoint(playerTransform.position)) target = playerTransform;
+        //if (!target && CanSeePoint(playerTransform.position)) target = playerTransform;
+        if (!target && CanSeeTransform(playerTransform)) target = playerTransform;
 
-        string debugString = $"state: {state}\ntarget: {(target ? target.name : "null")}\nsees player: {CanSeePoint(playerTransform.position)}\nDistance:{Vector3.Distance(transform.position, GameManager.Instance.PlayerTransform.position).RoundToDecimalPlaces(1)}";
+        string debugString = $"state: {state}\ntarget: {(target ? target.name : "null")}\nsees player: {CanSeeTransform(playerTransform)}\nDistance:{Vector3.Distance(transform.position, GameManager.Instance.PlayerTransform.position).RoundToDecimalPlaces(1)}";
         //Debug.Log(debugString);
         text.text = debugString;
 
@@ -194,17 +204,32 @@ public class WendigoAI : MonoBehaviour
     {
         Vector3 posWithOffset = transform.position + Vector3.up;
         if (Vector3.Distance(posWithOffset, point) > sightRange) return false;
-        if (Vector3.Dot(transform.forward, Maf.Direction(transform.position, point)) < 0.85f && Vector3.Distance(transform.position, point) > 3f) return false;
+        if (Vector3.Dot(transform.forward, Maf.Direction(transform.position, point)) < 0.5f) return false;
 
         // linecast to target point doesn't hit anything, or the hit point is within 1 unit of the target point
         if (Physics.Linecast(posWithOffset, point + Vector3.up, out RaycastHit hit))
         {
-            return Vector3.Distance(point, hit.point) < 2f;
+            return Vector3.Distance(point, hit.point) < 0.3f;
         }
         else return true;
-
-        //return !Physics.Linecast(transform.position + Vector3.up, point + Vector3.up, out RaycastHit hit) || (hit.collider && Vector3.Distance(point, hit.point) < 1f);
     }
+
+    bool CanSeeTransform(Transform sampleTransform)
+    {
+        Vector3 posWithOffset = transform.position + Vector3.up;
+        if (Vector3.Distance(posWithOffset, sampleTransform.position) > sightRange) return false;
+        if (Vector3.Dot(transform.forward, Maf.Direction(transform.position, sampleTransform.position)) < 0.5f) return false;
+
+        // linecast to target point doesn't hit anything, or the hit point is within 1 unit of the target point
+        if (Physics.Linecast(posWithOffset, sampleTransform.position + Vector3.up, out RaycastHit hit))
+        {
+            return Vector3.Distance(sampleTransform.position, hit.point) < 0.3f || hit.transform == sampleTransform;
+        }
+        else return true;
+    }
+
+    //bool IsPointOnNavmesh(Vector3 point) => NavMesh.SamplePosition(point, out NavMeshHit hit, 15f, agent.areaMask);
+    bool IsPointOnNavmesh(Vector3 point) => NavMesh.SamplePosition(point, out NavMeshHit hit, 15f, navFilter);
 
     bool MoveToPos(Vector3 pos)
     {
@@ -242,7 +267,7 @@ public class WendigoAI : MonoBehaviour
             Vector3 raycastPos = point + randomOffset;
 
             //if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && Mathf.Abs(transform.position.y - hit.point.y) <= maxHeightDifference) return hit.point;
-            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 10f, NavMesh.AllAreas)) return navHit.position;
+            if (Physics.Raycast(raycastPos, Vector3.down, out RaycastHit hit) && NavMesh.SamplePosition(hit.point, out NavMeshHit navHit, 10f, navFilter)) return navHit.position;
         }
 
         //if (NavMesh.SamplePosition(target.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))

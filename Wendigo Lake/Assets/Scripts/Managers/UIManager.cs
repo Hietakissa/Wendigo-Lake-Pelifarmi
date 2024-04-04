@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using HietakissaUtils.QOL;
 using System.Collections;
+using UnityEngine.Audio;
 using HietakissaUtils;
 using UnityEngine.UI;
 using UnityEngine;
@@ -8,6 +9,9 @@ using TMPro;
 
 public class UIManager : Manager
 {
+    const int CONST_CLUES_TO_SOLVE = 3;
+    int solvedClues;
+
     [SerializeField] float typeSpeed;
 
     [Header("Dialogue")]
@@ -39,12 +43,20 @@ public class UIManager : Manager
     [SerializeField] Transform imageParent;
     [SerializeField] Transform textParent;
 
+    [SerializeField] TextMeshProUGUI scuffedObjectivesText;
+    [SerializeField] CanvasGroup fadeToBlackUI;
+    [SerializeField] CanvasGroup wonGameUI;
+
     [SerializeField] JournalTab[] tabs;
+
+    [SerializeField] AudioMixerGroup masterMixer;
 
 
     void Awake()
     {
         canvas = GetComponent<Canvas>();
+
+        scuffedObjectivesText.text = $"Objectives:\r\n-Find clues {solvedClues}/{CONST_CLUES_TO_SOLVE}\r\n-Escape";
     }
 
 
@@ -133,7 +145,8 @@ public class UIManager : Manager
             {
                 Debug.Log($"Writing text: {((float)endIndex / maxIndex * 100f).RoundDown()}%");
 
-                typeTime += typeSpeed * Time.unscaledDeltaTime;
+                //typeTime += typeSpeed * Time.unscaledDeltaTime;
+                typeTime += typeSpeed * Time.deltaTime;
 
                 int newIndices = typeTime.RoundDown();
                 typeTime -= newIndices;
@@ -146,7 +159,8 @@ public class UIManager : Manager
                 yield return null;
             }
 
-            yield return QOL.GetUnscaledWaitForSeconds(3f);
+            //yield return QOL.GetUnscaledWaitForSeconds(3f);
+            yield return QOL.GetWaitForSeconds(3f);
         }
     }
 
@@ -177,9 +191,13 @@ public class UIManager : Manager
                 Destroy(currentClue.gameObject);
                 draggableClues.Remove(clue);
                 draggableClues.Remove(currentClue);
+                solvedClues++;
                 break;
             }
         }
+
+        scuffedObjectivesText.text = $"Objectives:\r\n-Find clues {solvedClues}/{CONST_CLUES_TO_SOLVE}\r\n-Escape";
+        if (solvedClues == CONST_CLUES_TO_SOLVE) EventManager.CollectedAllClues();
 
 
         bool TypeMatch(DraggableClue a, DraggableClue b) => a.clueData.GetClueType == b.clueData.GetClueType;
@@ -247,6 +265,27 @@ public class UIManager : Manager
     }
 
 
+    public void ChangeSensitivity(float sensitivity)
+    {
+        GameManager.Instance.Sensitivity = sensitivity;
+    }
+
+    public void ChangeVolume(float volume)
+    {
+        masterMixer.audioMixer.SetFloat("Master Volume", Maf.ReMap(0f, 100f, -20f, 20f, volume));
+    }
+
+    int[] fpsCap = new int[] { 0, 30, 60, 90, 120, 144, 240};
+    public void ChangeFPSCap(int index)
+    {
+        if (index == 7)
+        {
+            Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
+        }
+        else Application.targetFrameRate = fpsCap[index];
+    }
+
+
     void EventManager_OnPause()
     {
         pauseUI.SetActive(true);
@@ -255,6 +294,46 @@ public class UIManager : Manager
     void EventManager_OnUnPause()
     {
         pauseUI.SetActive(false);
+    }
+
+    void EventManager_OnPlayerDied()
+    {
+        StartCoroutine(PlayerDiedCor());
+    }
+
+    IEnumerator PlayerDiedCor()
+    {
+        float time = 0f;
+
+        while (true)
+        {
+            time += Time.deltaTime;
+            float progress = time / 2.7f;
+            fadeToBlackUI.alpha = progress;
+
+            if (progress >= 1f) break;
+            yield return null;
+        }
+    }
+
+    void EventManager_OnWonGame()
+    {
+        StartCoroutine(WonGameCor());
+    }
+
+    IEnumerator WonGameCor()
+    {
+        float time = 0f;
+
+        while (true)
+        {
+            time += Time.deltaTime;
+            float progress = time / 2.7f;
+            wonGameUI.alpha = progress;
+
+            if (progress >= 1f) break;
+            yield return null;
+        }
     }
 
 
@@ -269,6 +348,10 @@ public class UIManager : Manager
 
         EventManager.OnPause += EventManager_OnPause;
         EventManager.OnUnPause += EventManager_OnUnPause;
+
+        EventManager.OnPlayerDied += EventManager_OnPlayerDied;
+
+        EventManager.OnWonGame += EventManager_OnWonGame;
     }
 
     void OnDisable()
@@ -282,5 +365,9 @@ public class UIManager : Manager
 
         EventManager.OnPause -= EventManager_OnPause;
         EventManager.OnUnPause -= EventManager_OnUnPause;
+
+        EventManager.OnPlayerDied -= EventManager_OnPlayerDied;
+
+        EventManager.OnWonGame -= EventManager_OnWonGame;
     }
 }

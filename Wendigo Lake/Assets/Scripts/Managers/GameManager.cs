@@ -1,7 +1,9 @@
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using HietakissaUtils.QOL;
+using System.Collections;
 using HietakissaUtils;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class GameManager : MonoBehaviour
 
     public void SetPlayerVisibility(float visibility) => PlayerVisibility = visibility;
     public float PlayerVisibility { get; private set; }
+    public bool HasCollectedClues { get; private set; }
+    public bool HasWonGame { get; private set; }
+    public bool IsPlayerAlive { get; private set; } = true;
+    public float Sensitivity = 1f;
 
     public bool Paused { get; private set; }
 
@@ -37,7 +43,11 @@ public class GameManager : MonoBehaviour
         {
             manager.Initialize();
         }
+
+        Application.targetFrameRate = (int)Screen.currentResolution.refreshRateRatio.value;
     }
+
+    void Start() => EventManager.Pause();
 
     void Update()
     {
@@ -86,6 +96,16 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void UnPause()
+    {
+        EventManager.UnPause();
+    }
+
+    public void Quit()
+    {
+        QOL.Quit();
+    }
+
     public static void ShowMouse()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -113,12 +133,31 @@ public class GameManager : MonoBehaviour
 
     void EventManager_PlayerDied()
     {
+        IsPlayerAlive = false;
+        StartCoroutine(PlayerDiedCor());
+    }
+
+    IEnumerator PlayerDiedCor()
+    {
+        yield return QOL.GetWaitForSeconds(3);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
 
     void Photography_OnDeerDied(DeerAI deer)
     {
         this.deer.Remove(deer);
+    }
+
+    void EventManager_OnCollectedAllClues()
+    {
+        HasCollectedClues = true;
+    }
+
+    void EventManager_OnWonGame()
+    {
+        EventManager.Pause();
+        HasWonGame = true;
     }
 
 
@@ -133,6 +172,10 @@ public class GameManager : MonoBehaviour
         EventManager.OnPlayerDied += EventManager_PlayerDied;
 
         EventManager.Photography.OnDeerDied += Photography_OnDeerDied;
+
+        EventManager.OnCollectedAllClues += EventManager_OnCollectedAllClues;
+
+        EventManager.OnWonGame += EventManager_OnWonGame;
     }
 
     void OnDisable()
@@ -143,6 +186,10 @@ public class GameManager : MonoBehaviour
         EventManager.OnPlayerDied -= EventManager_PlayerDied;
 
         EventManager.Photography.OnDeerDied -= Photography_OnDeerDied;
+
+        EventManager.OnCollectedAllClues -= EventManager_OnCollectedAllClues;
+
+        EventManager.OnWonGame -= EventManager_OnWonGame;
     }
 }
 

@@ -17,21 +17,29 @@ public class FootstepPlayer : MonoBehaviour
 
     const float CONST_GROUNDCHECKOFFSET = 0.3f;
 
+    float timeCreated;
+
     void Awake()
     {
+        timeCreated = Time.realtimeSinceStartup;
+
         materialSounds.Clear();
         foreach (TerrainMaterialSoundCollectionPair pair in materialStepSounds)
         {
             materialSounds[pair.Material] = pair.Sounds;
         }
-
-        lastPos = transform.position;
     }
 
     void Update()
     {
         //Debug.Log($"lastpos: {lastPos}, currentpos: {transform.position}, moved: {Vector3.Distance(transform.position, lastPos)}, estimated speed: {1f / Time.deltaTime * Vector3.Distance(transform.position, lastPos)}");
-        
+
+        if (Time.realtimeSinceStartup - timeCreated < 0.2f)
+        {
+            lastPos = transform.position;
+            return;
+        }
+
         if (Physics.Raycast(groundCheckPos.position + Vector3.up * CONST_GROUNDCHECKOFFSET, Vector3.down, out RaycastHit hit, groundCheckDistance + CONST_GROUNDCHECKOFFSET))
         {
             distanceMoved += Vector3.Distance(transform.position, lastPos);

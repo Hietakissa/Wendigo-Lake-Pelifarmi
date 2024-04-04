@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Wendigo Lake/Assets/Scenes/kuvausalue2.unity.meta
+guid: c40255d80ea26fa41a742bc1a8941818
+========
 guid: 0da3e8d21f3eeb844b82b6d7b62490e3
 folderAsset: yes
+>>>>>>>> 53ad98ad06cb0cce0e5a9fa67ad81b4215c69ed9:Wendigo Lake/Assets/ScriptableObjects/Sounds/Deer.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
