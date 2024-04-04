@@ -2089,11 +2089,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1744417995}
-    - target: {fileID: 3640906735453965563, guid: 841e2d8de6847674bb26d47e3f38b096,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 7495043600797406681, guid: 841e2d8de6847674bb26d47e3f38b096,
         type: 3}
       propertyPath: m_Pivot.x
