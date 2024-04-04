@@ -10,19 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e424a7489e1c31646bb0402ae79f6404, type: 3}
-  m_Name: PlayerWoodSteps
+  m_Name: MenuClick
   m_EditorClassIdentifier: 
   <SoundCollectionType>k__BackingField: 1
   <MixerGroup>k__BackingField: {fileID: 0}
   sounds:
-  - <Type>k__BackingField: 1
-    <Clip>k__BackingField: {fileID: 8300000, guid: 5c3e06615119019489f95ac426194cd9,
-      type: 3}
-    Volume: 1
-    MinPitchDeviation: -0.1
-    MaxPitchDeviation: 0.1
-  - <Type>k__BackingField: 1
-    <Clip>k__BackingField: {fileID: 8300000, guid: 36f2dac740979314da4c9d5c56eb5ef0,
+  - <Type>k__BackingField: 0
+    <Clip>k__BackingField: {fileID: 8300000, guid: c0ad1db179751934eb5b9971bd73cc1b,
       type: 3}
     Volume: 1
     MinPitchDeviation: -0.1

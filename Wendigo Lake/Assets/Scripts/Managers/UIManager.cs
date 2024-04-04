@@ -47,6 +47,8 @@ public class UIManager : Manager
     [SerializeField] CanvasGroup fadeToBlackUI;
     [SerializeField] CanvasGroup wonGameUI;
 
+    [SerializeField] SoundCollectionSO clickSounds;
+
     [SerializeField] JournalTab[] tabs;
 
     [SerializeField] AudioMixerGroup masterMixer;
@@ -334,6 +336,11 @@ public class UIManager : Manager
             if (progress >= 1f) break;
             yield return null;
         }
+    }
+
+    public void PlayClickSound()
+    {
+        EventManager.PlaySoundAtPosition(clickSounds, Vector3.zero);
     }
 
 

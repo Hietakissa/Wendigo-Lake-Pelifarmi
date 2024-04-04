@@ -242,7 +242,7 @@ MonoBehaviour:
   attackSounds: {fileID: 11400000, guid: 6bcb9002d71b59a4c9d8ad91a517de5d, type: 2}
   sightRange: 20
   maxHeightDifference: 2
-  attackDistance: 1.6
+  attackDistance: 1.8
   text: {fileID: 5903195961574191008}
 --- !u!114 &2371017982281353535
 MonoBehaviour:
