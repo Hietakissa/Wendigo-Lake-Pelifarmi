@@ -1035,10 +1035,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 685802764009140415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 420.98, y: 97.19}
-  m_SizeDelta: {x: 648.715, y: 194.38}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -324.02, y: -310.81}
+  m_SizeDelta: {x: 648.7151, y: 194.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8214193960348546415
 CanvasRenderer:
@@ -3204,9 +3204,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3927241037343766264}
   - {fileID: 9041778357309060083}
   - {fileID: 2835246187883219281}
+  - {fileID: 3927241037343766264}
   - {fileID: 7967156821175111592}
   m_Father: {fileID: 9035889679356469393}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5428,9 +5428,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 685802764009140415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -402.777, y: 4.913}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 342.22296, y: -403.087}
   m_SizeDelta: {x: 685.124, y: 806.11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8448769787380434472
@@ -5461,19 +5461,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Credits:
+  m_text: '<u>Credits:</u>
 
-    -plaa
+    Game Concept - Eemi
 
-    -plaa
+    Level Design - Jami
 
-    -plaa
+    Writing/Story
+    - Taru
 
-    -plaa
+    2D - Tiina, Eemi, Taru
 
-    -plaa
+    Programming - Pyry
 
-    -plaa'
+    UI - Pyry'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6e27355b4319d9546a379bfa2a9ec88c, type: 2}
   m_sharedMaterial: {fileID: 906338896773894425, guid: 6e27355b4319d9546a379bfa2a9ec88c,
@@ -5501,13 +5502,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 85.75
-  m_fontSizeBase: 36
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 120
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -6482,10 +6483,10 @@ RectTransform:
   - {fileID: 8408021687184421657}
   m_Father: {fileID: 685802764009140415}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 415, y: -105}
-  m_SizeDelta: {x: 294.4905, y: 162.8289}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -330, y: -513}
+  m_SizeDelta: {x: 294.49048, y: 162.82892}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1703031656529173
 MonoBehaviour:
