@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour
     {
         EventManager.Pause();
         HasWonGame = true;
+        Time.timeScale = 1f;
     }
 
 

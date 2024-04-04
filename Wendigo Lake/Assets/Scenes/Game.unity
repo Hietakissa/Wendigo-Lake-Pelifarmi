@@ -642,6 +642,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: ec4a7333fd25c48428ec1cd49e7ee134,
         type: 2}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -974,6 +979,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 87bc448f7878cc74f8cd33c207196d2b,
         type: 2}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1290,6 +1300,11 @@ PrefabInstance:
         type: 3}
       propertyPath: onPhotographed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
@@ -2149,6 +2164,11 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 3984738386154187640, guid: 841e2d8de6847674bb26d47e3f38b096,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7249075227796665473, guid: 841e2d8de6847674bb26d47e3f38b096,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2932,6 +2952,11 @@ PrefabInstance:
         type: 3}
       propertyPath: onPhotographed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
@@ -4585,6 +4610,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 50e3c10bea417a049a159e2395374a22,
         type: 2}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9072,6 +9102,11 @@ PrefabInstance:
       propertyPath: onPhotographed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9950,6 +9985,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f842bde8c6333f445a6b940e2f320bdd,
         type: 2}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10963,6 +11003,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a776c43ed1a4b9144bc7029e2edb85f2,
         type: 2}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14068,6 +14113,11 @@ PrefabInstance:
         type: 3}
       propertyPath: onPhotographed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
@@ -18344,6 +18394,11 @@ PrefabInstance:
       propertyPath: onPhotographed.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20216,6 +20271,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1238494080504286294, guid: f5d0e82cee00c2d45a36c34c611cd2a1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7433917132446701693, guid: f5d0e82cee00c2d45a36c34c611cd2a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -20366,6 +20426,11 @@ PrefabInstance:
         type: 3}
       propertyPath: onPhotographed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
@@ -21387,6 +21452,7 @@ MonoBehaviour:
   scuffedObjectivesText: {fileID: 0}
   fadeToBlackUI: {fileID: 0}
   wonGameUI: {fileID: 0}
+  clickSounds: {fileID: 0}
   tabs:
   - {fileID: 2043969543}
   - {fileID: 1672764270}
@@ -23222,6 +23288,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2971071e8ce526b4a9edb7b6f10c0d6a,
         type: 2}
+    - target: {fileID: 2605585541922097276, guid: d168f7b44b72a994a9b4a2f7541208cb,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6118013551989722169, guid: d168f7b44b72a994a9b4a2f7541208cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -23406,17 +23477,17 @@ PrefabInstance:
     - target: {fileID: 5593739781455330693, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.1
+      value: 211.21263
       objectReference: {fileID: 0}
     - target: {fileID: 5593739781455330693, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.609
+      value: 22.37517
       objectReference: {fileID: 0}
     - target: {fileID: 5593739781455330693, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.9
+      value: 51.82802
       objectReference: {fileID: 0}
     - target: {fileID: 5593739781455330693, guid: 0291e2a4e9a5d4c47b2d405d71e9a3a6,
         type: 3}
@@ -23600,6 +23671,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7083756217204658753, guid: 3b80fab0e71ce114ea8189fde802acef,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

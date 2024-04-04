@@ -129,6 +129,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2249436734766635054, guid: bf023bafe780ba3419db22f5cdb9ec06,
         type: 3}
+      propertyPath: prewarm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2249436734766635054, guid: bf023bafe780ba3419db22f5cdb9ec06,
+        type: 3}
       propertyPath: SizeModule.enabled
       value: 1
       objectReference: {fileID: 0}
