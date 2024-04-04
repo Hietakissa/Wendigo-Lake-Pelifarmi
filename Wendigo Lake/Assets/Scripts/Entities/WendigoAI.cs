@@ -20,6 +20,7 @@ public class WendigoAI : MonoBehaviour
     [SerializeField] SoundCollectionSO approachSounds;
     [SerializeField] SoundCollectionSO aggroSounds;
     [SerializeField] SoundCollectionSO eatSounds;
+    [SerializeField] SoundCollectionSO attackSounds;
 
     [Header("Other")]
     [SerializeField] float sightRange = 15f;
@@ -69,6 +70,8 @@ public class WendigoAI : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.IsPlayerAlive || GameManager.Instance.HasWonGame) return;
+
         if (flashed > 0f)
         {
             state = State.Roaming;
@@ -126,6 +129,7 @@ public class WendigoAI : MonoBehaviour
                 if (target == playerTransform && flashed <= 0f && Vector3.Distance(transform.position, playerTransform.position) < attackDistance)
                 {
                     Debug.Log($"reached player?");
+                    EventManager.PlaySoundAtPosition(attackSounds, transform.position);
                     EventManager.PlayerDied();
                     //QOL.Quit();
                 }
@@ -141,6 +145,7 @@ public class WendigoAI : MonoBehaviour
                             deer.Remove(seeDeer);
                             Destroy(seeDeer.gameObject);
 
+                            EventManager.PlaySoundAtPosition(attackSounds, transform.position);
                             EventManager.PlaySoundAtPosition(eatSounds, transform.position);
                         }
                         state = State.Roaming;

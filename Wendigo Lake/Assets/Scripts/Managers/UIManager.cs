@@ -9,6 +9,9 @@ using TMPro;
 
 public class UIManager : Manager
 {
+    const int CONST_CLUES_TO_SOLVE = 3;
+    int solvedClues;
+
     [SerializeField] float typeSpeed;
 
     [Header("Dialogue")]
@@ -40,6 +43,10 @@ public class UIManager : Manager
     [SerializeField] Transform imageParent;
     [SerializeField] Transform textParent;
 
+    [SerializeField] TextMeshProUGUI scuffedObjectivesText;
+    [SerializeField] CanvasGroup fadeToBlackUI;
+    [SerializeField] CanvasGroup wonGameUI;
+
     [SerializeField] JournalTab[] tabs;
 
     [SerializeField] AudioMixerGroup masterMixer;
@@ -48,6 +55,8 @@ public class UIManager : Manager
     void Awake()
     {
         canvas = GetComponent<Canvas>();
+
+        scuffedObjectivesText.text = $"Objectives:\r\n-Find clues {solvedClues}/{CONST_CLUES_TO_SOLVE}\r\n-Escape";
     }
 
 
@@ -182,9 +191,13 @@ public class UIManager : Manager
                 Destroy(currentClue.gameObject);
                 draggableClues.Remove(clue);
                 draggableClues.Remove(currentClue);
+                solvedClues++;
                 break;
             }
         }
+
+        scuffedObjectivesText.text = $"Objectives:\r\n-Find clues {solvedClues}/{CONST_CLUES_TO_SOLVE}\r\n-Escape";
+        if (solvedClues == CONST_CLUES_TO_SOLVE) EventManager.CollectedAllClues();
 
 
         bool TypeMatch(DraggableClue a, DraggableClue b) => a.clueData.GetClueType == b.clueData.GetClueType;
@@ -283,6 +296,46 @@ public class UIManager : Manager
         pauseUI.SetActive(false);
     }
 
+    void EventManager_OnPlayerDied()
+    {
+        StartCoroutine(PlayerDiedCor());
+    }
+
+    IEnumerator PlayerDiedCor()
+    {
+        float time = 0f;
+
+        while (true)
+        {
+            time += Time.deltaTime;
+            float progress = time / 2.7f;
+            fadeToBlackUI.alpha = progress;
+
+            if (progress >= 1f) break;
+            yield return null;
+        }
+    }
+
+    void EventManager_OnWonGame()
+    {
+        StartCoroutine(WonGameCor());
+    }
+
+    IEnumerator WonGameCor()
+    {
+        float time = 0f;
+
+        while (true)
+        {
+            time += Time.deltaTime;
+            float progress = time / 2.7f;
+            wonGameUI.alpha = progress;
+
+            if (progress >= 1f) break;
+            yield return null;
+        }
+    }
+
 
     void OnEnable()
     {
@@ -295,6 +348,10 @@ public class UIManager : Manager
 
         EventManager.OnPause += EventManager_OnPause;
         EventManager.OnUnPause += EventManager_OnUnPause;
+
+        EventManager.OnPlayerDied += EventManager_OnPlayerDied;
+
+        EventManager.OnWonGame += EventManager_OnWonGame;
     }
 
     void OnDisable()
@@ -308,5 +365,9 @@ public class UIManager : Manager
 
         EventManager.OnPause -= EventManager_OnPause;
         EventManager.OnUnPause -= EventManager_OnUnPause;
+
+        EventManager.OnPlayerDied -= EventManager_OnPlayerDied;
+
+        EventManager.OnWonGame -= EventManager_OnWonGame;
     }
 }

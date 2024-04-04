@@ -23,6 +23,12 @@ public static class EventManager
     public static void PlayerDied() => OnPlayerDied?.Invoke();
     public static event Action OnPlayerDied;
 
+    public static void CollectedAllClues() => OnCollectedAllClues?.Invoke();
+    public static event Action OnCollectedAllClues;
+
+    public static void WonGame() => OnWonGame?.Invoke();
+    public static event Action OnWonGame;
+
 
     public static class UI
     {
